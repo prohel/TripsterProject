@@ -31,7 +31,7 @@ class Trip < ActiveRecord::Base
 
   def isMember(user)
  		requests = user.own_requests
-    trip = requests.find(id) if requests
+    trip = requests.find(id) if !requests.blank?
  		!requests.blank? && !trip.blank? && trip.accepted == 1
   end
 

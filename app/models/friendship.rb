@@ -1,6 +1,7 @@
 class Friendship < ActiveRecord::Base
 	has_one :user1, class_name: "User"
 	has_one :user2, class_name: "User"
+	attr_accessible :user1_id, :user2_id
 
 	def isReciprocate
  		!Friendship.find_by_user1_id_and_user2_id(

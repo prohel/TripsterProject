@@ -53,7 +53,7 @@
   </thead>
   <tbody>
     <% @friends.each do |friend| %>
-      <% @friend.trips.each do |trip| %>
+      <% friend.trips.each do |trip| %>
         <tr>
           <td><%= trip.id %></td>
           <td><%= trip.name %></td>

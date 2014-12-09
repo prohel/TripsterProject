@@ -29,5 +29,11 @@ class Trip < ActiveRecord::Base
 	  end
   end
 
+  def isMember(user)
+ 		requests = user.own_requests
+    trip = requests.find(id) if requests
+ 		!requests.blank? && !trip.blank? && trip.accepted == 1
+  end
+
 end
 

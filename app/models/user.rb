@@ -40,6 +40,11 @@ class User < ActiveRecord::Base
     return !Friendship.find_by_user1_id_and_user2_id(self.id, target.id).blank?
   end
 
+  def isFriendWith(user)
+    !Friendship.find_by_user1_id_and_user2_id(id, user.id).blank? &&
+      !Friendship.find_by_user1_id_and_user2_id(user.id, id).blank?
+  end
+
   def friends
     result = []
     friendships_request = Friendship.where("user1_id = ?", self.id)

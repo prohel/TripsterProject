@@ -1,7 +1,32 @@
 TripsterProject::Application.routes.draw do
+  resources :attachment_comments
+
+
+  resources :album_comments
+
+
+  resources :attachments
+
+
+  resources :albums
+
+
+  resources :trip_invites
+
+
+  resources :trips
+
+
+  resources :user_locations
+
+
+  resources :locations
+  resources :users
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  
   devise_scope :user do
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+    delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

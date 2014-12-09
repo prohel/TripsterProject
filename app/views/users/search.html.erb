@@ -1,0 +1,17 @@
+<% if @tripSearches.size == 0 && @userSearches.size == 0%>
+	<h3> Sorry, we couldn't find any matches </h3>
+<% else %>
+	<h3> Following search results were retrieved </h3>
+	<% if @userSearches.size != 0 %>
+		<h5> Following users were found </h5>
+		<% @userSearches.each do |userSearch| %>
+		<%= link_to userSearch.email, user_path(userSearch) %><br>
+		<% end %>
+	<% end %>
+	<% if @tripSearches.size != 0 %>
+		<h5> Following trips were found </h5>
+		<% @tripSearches.each do |tripSearch| %>
+		<%= link_to tripSearch.name, trip_path(tripSearch) %><br>
+		<% end %>
+	<% end %>
+<% end %>

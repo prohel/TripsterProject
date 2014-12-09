@@ -1,0 +1,3 @@
+<% @recommendList.each do |recommendedFriend| %>
+		<%= link_to recommendedFriend.email, user_path(recommendedFriend) %><br>
+		<% end %>

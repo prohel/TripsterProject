@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  trip: 
+  name: MyString
+  created_by: 1
+
+two:
+  trip: 
+  name: MyString
+  created_by: 1

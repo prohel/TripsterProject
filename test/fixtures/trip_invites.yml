@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  trip: 
+  sender: MyString
+  receiver: MyString
+  accepted: 1
+
+two:
+  trip: 
+  sender: MyString
+  receiver: MyString
+  accepted: 1

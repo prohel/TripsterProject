@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Trip:</b>
+  <%= @trip_invite.trip %>
+</p>
+
+<p>
+  <b>Sender:</b>
+  <%= @trip_invite.sender %>
+</p>
+
+<p>
+  <b>Receiver:</b>
+  <%= @trip_invite.receiver %>
+</p>
+
+<p>
+  <b>Accepted:</b>
+  <%= @trip_invite.accepted %>
+</p>
+
+
+<%= link_to 'Edit', edit_trip_invite_path(@trip_invite) %> |
+<%= link_to 'Back', trip_invites_path %>

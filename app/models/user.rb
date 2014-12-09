@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :name, :password_confirmation, :remember_me
   # attr_accessible :title, :body
+  has_many :trips, :foreign_key => "created_by"
+  has_many :albums, :foreign_key => "created_by"
+  has_many :attachments, :foreign_key => "created_by"
 
   def self.from_omniauth(auth)
 	  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

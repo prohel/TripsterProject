@@ -1,0 +1,2 @@
+module TripInvitesHelper
+end

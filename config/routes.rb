@@ -14,9 +14,6 @@ TripsterProject::Application.routes.draw do
   resources :trip_invites
 
 
-  resources :trips
-
-
   resources :user_locations
 
 
@@ -28,6 +25,45 @@ TripsterProject::Application.routes.draw do
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
+
+  match 'like' => 'users#like', :via => [:post]
+  match 'unlike' => 'users#unlike', :via => [:post]
+  get 'newsfeed' => 'newsfeed#index'
+  resources :locations
+  resources :trips_invites do
+    collection do
+      post 'requestTrip'
+      # post 'acceptRequest'
+      # post 'declineRequest'
+      # get 'hasJoiningTripBeenRequested'
+    end
+  end
+
+  resources :trips do
+    resources :albums do
+      resources :albums_comments
+      resources :albums_ratings
+    end
+    resources :attachments do
+      resources :attachment_comments
+      resources :attachment_ratings
+    end
+    collection do
+      get 'search'
+      get 'invite'
+      get 'showTripNotifications'
+    end
+  end
+
+  resources :users do
+    collection do
+      get 'search'
+      get 'recommend'
+    end
+  end
+
+  root to: 'trips#index'
+  get 'friend/:id', to: 'users#addFriend', as: 'friend'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

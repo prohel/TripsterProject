@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def addFriend
-  	@Friendship = Friendships.new({user1_id: current_user.id, user2_id: @User.id})
+  	@Friendship = Friendship.new({user1_id: current_user.id, user2_id: @User.id})
     if @Friendship.save
         render 'users/show', notice: 'Friendship request has been sent'
         #format.json { render :show, status: :created, location: @User }

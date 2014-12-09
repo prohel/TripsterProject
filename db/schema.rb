@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
 
   create_table "trip_invites", :force => true do |t|
     t.integer  "trip_id",    :precision => 38, :scale => 0
-    t.string   "sender"
-    t.string   "receiver"
+    t.integer  "sender",     :precision => 38, :scale => 0
+    t.integer  "receiver",   :precision => 38, :scale => 0
     t.integer  "accepted",   :precision => 38, :scale => 0
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false

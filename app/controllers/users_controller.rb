@@ -73,22 +73,15 @@ class UsersController < ApplicationController
   end
 
   def search
-    @userSearches = User.where("email like ?", "%#{params[:search]}%").order("created_at DESC")
+    @userSearches = User.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
     @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
   end
 
   def recommend
      @recommendList ||= []   
-     @userFriends = ActiveRecord::Base.connection.execute("SELECT user2_id 
-      from friendships where user1_id IN (SELECT user2_id from friendships
-        where user1_id = #{current_user.id}) EXCEPT 
-      SELECT user2_id from friendships where user1_id = #{current_user.id}")
-     @userFriends.each {|x| x.each do |key, value|
-                                      if key == "user2_id"
-                                        @recommendList << User.find(value)
-                                      end
-                                   end 
-                        }   
+     friends = current_user.friends
+     @friendsOfFriends = friends.map {|f| f.friends}.flatten
+      .delete_if {|f| friends.include?(f) || f == current_user}
   end
 
   def like

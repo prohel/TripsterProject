@@ -26,6 +26,14 @@ TripsterProject::Application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
+  
+  resources :users do
+    collection do
+      get 'search'
+      get 'recommend'
+    end
+  end
+
   resources :users
 
   match 'like' => 'users#like', :via => [:post]
@@ -57,12 +65,6 @@ TripsterProject::Application.routes.draw do
     end
   end
 
-  resources :users do
-    collection do
-      get 'search'
-      get 'recommend'
-    end
-  end
 
   get 'friend/:id', to: 'users#addFriend', as: 'friend'
   # The priority is based upon order of creation:

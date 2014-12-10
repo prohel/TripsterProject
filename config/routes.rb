@@ -1,7 +1,8 @@
 TripsterProject::Application.routes.draw do
   resources :attachment_comments
 
-
+  root to: 'trips#index'
+  
   resources :album_comments
 
 
@@ -31,7 +32,7 @@ TripsterProject::Application.routes.draw do
   match 'unlike' => 'users#unlike', :via => [:post]
   get 'newsfeed' => 'newsfeed#index'
   resources :locations
-  resources :trips_invites do
+  resources :trip_invites do
     collection do
       post 'requestTrip'
       # post 'acceptRequest'
@@ -63,7 +64,6 @@ TripsterProject::Application.routes.draw do
     end
   end
 
-  root to: 'trips#index'
   get 'friend/:id', to: 'users#addFriend', as: 'friend'
   # The priority is based upon order of creation:
   # first created -> highest priority.

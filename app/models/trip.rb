@@ -5,17 +5,11 @@ class Trip < ActiveRecord::Base
   validates :name, presence: true
   belongs_to :user, foreign_key: "created_by"
   acts_as_likeable
-  has_many :members_invited, through: :trip_invites, foreign_key: "trip", source: "receiver", conditions: ["trip_invite.sender = ?, trip_invite.accepted = ?", :created_by, 1]
-  has_many :members_accepted, through: :trip_invites, foreign_key: "trip", source: "sender", conditions: ["trip_invite.receiver = ?, trip_invite.accepted = ?", :created_by, 1]
-  has_many :requests, class_name: "TripInvite", foreign_key: "trip", conditions: ["trip_invite.receiver = ?", :created_by]
-  has_many :invites, class_name: "TripInvite", foreign_key: "trip", conditions: ["trip_invite.sender = ?", :created_by]
-  has_many :pending_requests, class_name: "TripInvite", foreign_key: "trip", conditions: ["trip_invite.receiver = ?, trip_invite.accepted = ?", :created_by, 2]
-  has_many :pending_invites, class_name: "TripInvite", foreign_key: "trip", conditions: ["trip_invite.sender = ?, trip_invite.accepted = ?", :created_by, 2]
-  has_many :declined_requests, class_name: "TripInvite", foreign_key: "trip", conditions: ["trip_invite.receiver = ?, trip_invite.accepted = ?", :created_by, 0]
-  has_many :declined_invites, class_name: "TripInvite", foreign_key: "trip", conditions: ["trip_invite.sender = ?, trip_invite.accepted = ?", :created_by, 0]
+  has_many :trip_invites
+  
 
   def members
-  	members_invited + members_accepted
+  	invited_members + accepted_members
   end
 
   def date_validation
@@ -30,9 +24,40 @@ class Trip < ActiveRecord::Base
   end
 
   def isMember(user)
- 		requests = user.own_requests
-    trip = requests.find(id) if !requests.blank?
- 		!requests.blank? && !trip.blank? && trip.accepted == 1
+    accepted_members.include?(user) or
+      invited_members.include?(user)
+  end
+
+  def invited_members
+    TripInvite.where("sender = ? AND trip_invites.accepted = 1", created_by).map(&:receiver)
+  end
+
+  def accepted_members
+    TripInvite.where("receiver = ? AND trip_invites.accepted = 1", created_by).map(&:sender)
+  end
+
+  def requests
+    TripInvite.where("receiver = ?", created_by)
+  end
+  
+  def invites
+    TripInvite.where("sender = ?", created_by)
+  end
+
+  def pending_requests
+    TripInvite.where("receiver = ? AND accepter = 2", created_by)
+  end
+
+  def pending_invites
+    TripInvite.where("sender = ? AND accepter = 2", created_by)
+  end
+
+  def declined_requests
+    TripInvite.where("receiver = ? AND accepter = 0", created_by)
+  end
+
+  def declined_invites
+    TripInvite.where("sender = ? AND accepter = 0", created_by)
   end
 
 end

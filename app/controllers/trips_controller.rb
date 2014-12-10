@@ -4,6 +4,7 @@ class TripsController < ApplicationController
   respond_to :html
 
   def index
+    @user = current_user
     @userTrips = current_user.trips
     @friends = current_user.friends                                              
   end
@@ -28,7 +29,8 @@ class TripsController < ApplicationController
     #respond to do |format|
     @trip = Trip.find(params[:trip])
     @creator = User.find(@trip.created_by)
-    @list = @creator.friends.where("id NOT IN ?", @trip.members.map(&:id))                
+    members = @trip.members.map(&:id)
+    @list = @creator.friends.delete_if {|friend| members.include?(friend.id)}                
   end
 
   # def requestTrips

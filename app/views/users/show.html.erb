@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @User.email %></dd>
   <dt><strong><%= model_class.human_attribute_name(:image) %>:</strong></dt>
-  <dd><img src="<%= @User.image %>" alt="<%= @User.name%>"</dd>
+  <dd><img src="<%= @User.photo %>" alt="<%= @User.name%>"</dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

@@ -3,7 +3,6 @@ class Trip < ActiveRecord::Base
   attr_accessible :created_by, :end_date, :name, :start_date
   validate :date_validation
   validates :name, presence: true
-  belongs_to :user, foreign_key: "created_by"
   acts_as_likeable
   has_many :albums
   has_many :attachments
@@ -22,6 +21,10 @@ class Trip < ActiveRecord::Base
 	  else
 	    return true
 	  end
+  end
+
+  def creator
+    User.find(created_by)
   end
 
   def isMember(user)

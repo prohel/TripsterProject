@@ -1,0 +1,16 @@
+<div class="well well-sm">
+<%= glyph(:picture) %>
+<%attachment = Attachment.find(n[:target_id])%>
+<strong><%= User.find(n[:owner_id]).name%></strong> added an attachment to the trip <strong><%= Trip.find(attachment.trip_id).name%></strong><strong></strong>
+<span style="margin-left:20px;">
+<div style="margin-top:10px;">
+<% if attachment.attachment_type == "photo" %>
+            <a href="<%= attachment.url %>"><img src="<%= attachment.url %>" alt="<%= attachment.name %>" class="thumbnail"></a>
+          <% elsif attachment.attachment_type == "link" %>
+            <a href="<%= attachment.url %>">Follow Link</a>
+          <% elsif attachment.attachment_type == "video" %>
+            <a href="<%= attachment.url %>">View Video</a>
+          <% end %></div>
+          <span style="float:right"><strong><%= local_time(n[:created_at])%></strong></span>
+</span>
+ </div>

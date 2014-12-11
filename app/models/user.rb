@@ -60,21 +60,10 @@ class User < ActiveRecord::Base
     friendships_request.each do |fr|
       r = fr.reciprocate
       if r
-        if fr.created_at > r.created_at
+        if fr.created_at >= r.created_at
           result << fr
         else
           result << r
-        end
-      end
-    end
-    friendships_invites = Friendship.where("user2_id = ?", self.id)
-    friendships_invites.each do |fi|
-      r = fi.reciprocate
-      if r
-        if fi.created_at > r.created_at
-          result << fi if !result.include?(fi)
-        else
-          result << r if !result.include?(r)
         end
       end
     end
@@ -98,6 +87,10 @@ class User < ActiveRecord::Base
 
   def accepted_requests_and_invites
     TripInvite.where("(receiver = ? OR sender = ?) AND accepted = 1", id, id)
+  end
+
+  def photo
+    !image.blank? ? image : "/assets/silhouette.png"
   end
 
  acts_as_liker

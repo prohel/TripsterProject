@@ -1,0 +1,7 @@
+<h4>You may know</h4>
+<ul id="recommendations">
+<% @friendsOfFriends.each do |friendOfFriend| %>
+<li>
+		<%= link_to friendOfFriend.name, user_path(friendOfFriend) %></li>
+		<% end %>
+		<ul>

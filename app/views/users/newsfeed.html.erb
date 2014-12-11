@@ -1,4 +1,10 @@
-<h3> Welcome back, <%=current_user.name%> </h3>
+
+<div style="width:800px;margin-left:auto;margin-right:auto;">
+<div id="sidebar-wrapper">
+        <%= render 'recommend', friendsOfFriends: @friendsOfFriends%>
+    </div>
+<div style="width:520px;display:inline-block;">
+<h3> Welcome back, <%=current_user.name%></h3>
 <%@news.each do |n|%>
 <% if n[:type] == "trip"%> 
 	<%=render "tripnotif", n: n %>
@@ -9,4 +15,9 @@
 <% if n[:type] == "friend"%> 
 	<%=render 'friendnotif', n: n%>
 <%end%>
+<% if n[:type] == "attachment"%> 
+	<%=render 'attachnotif', n: n%>
 <%end%>
+<%end%>
+</div>
+</div>

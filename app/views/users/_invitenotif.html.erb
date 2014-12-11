@@ -1,2 +1,4 @@
-<div class="well well-sm"><strong><%= User.find(n[:owner_id]).name%></strong> joined the trip <strong><%= Trip.find(n[:target_id]).name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+<div class="well well-sm">
+<%= glyph(:plus) %>
+<strong><%= User.find(n[:owner_id]).name%></strong> joined the trip <strong><%= Trip.find(n[:target_id]).name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
  </div>

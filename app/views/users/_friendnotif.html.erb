@@ -1,4 +1,8 @@
 <div class="well well-sm">
-<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-<strong><%= User.find(n[:owner_id]).name%></strong> became friend with <strong><%= User.find(n[:target_id]).name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+<%= glyph(:user) %>
+<strong><%= User.find(n[:owner_id]).name%></strong> became friend with <strong><%= User.find(n[:target_id]).name%></strong>
+<span style="margin-left:20px;">
+<div style="margin-top:10px;"><img src=<%="#{User.find(n[:owner_id]).photo}"%> style="border-right:20px;"/> <img src=<%="#{User.find(n[:target_id]).photo}"%>/></div>
+</span>
+ <span style="float:right"><strong><%= local_time(n[:created_at])%></strong></span>
  </div>

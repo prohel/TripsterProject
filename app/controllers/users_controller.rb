@@ -19,6 +19,8 @@ class UsersController < ApplicationController
     tripsCreations = []
     tripsInvites = []
     friends = current_user.friends
+    userPlusFriends = Array.new(friends)
+    userPlusFriends << current_user
     friends.each do |f|
       friendsNotifications += f.friendships
     end
@@ -30,27 +32,41 @@ class UsersController < ApplicationController
         target_id: notif.user2.id
       }
     end
-    friends.each do |friend|
-      friend.trips do |notif|
+    userPlusFriends.each do |friend|
+      friend.trips.each do |notif|
         @news << {
           created_at: notif.created_at,
           type: "trip",
+          owner_id: notif.creator.id,
+          target_id: notif.id
+        }
+      end
+    end
+    userPlusFriends.each do |person|
+      tripsInvites += person.accepted_requests_and_invites
+    end
+      tripsInvites.uniq.each do |notif|
+        trip = Trip.find(notif.trip_id)
+        owner = trip.creator
+        @news << {
+          created_at: notif.updated_at,
+          type: "invite",
+          owner_id: notif.sender == owner ? notif.receiver.id : notif.sender.id,
+          target_id: notif.trip_id
+        }
+      end
+    userPlusFriends.each do |friend|
+      friend.attachments.each do |notif|
+        @news << {
+          created_at: notif.created_at,
+          type: "attachment",
           owner_id: notif.user.id,
           target_id: notif.id
         }
       end
     end
-    tripsNotifications = current_user.accepted_requests_and_invites
-    tripsNotifications.each do |notif|
-      trip = Trip.find(notif.trip_id)
-      owner = trip.created_by
-      @news << {
-        created_at: notif.updated_at,
-        type: "invite",
-        owner_id: notif.sender == owner ? notif.receiver.id : notif.sender.id,
-        target_id: notif.trip_id
-      }
-    end
+    @friendsOfFriends = friends.map {|f| f.friends}.flatten
+      .delete_if {|f| friends.include?(f) || f == current_user}
     @news = @news.sort_by{|n| n[:created_at]}.reverse
   end
 

@@ -126,6 +126,10 @@ class UsersController < ApplicationController
       .delete_if {|f| friends.include?(f) || f == current_user}
   end
 
+  def friendslist
+      @friends = Friendship.where("user1_id like ?", current_user.id)
+  end
+
   def like
       if params[:likeable_type] == "Trip"
           @likeable = Trip.find(params[:likeable_id])

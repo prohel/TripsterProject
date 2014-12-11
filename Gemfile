@@ -17,6 +17,7 @@ gem "therubyracer"
 gem "less-rails"
 gem "socialization"
 gem 'middleman-bootstrap-navbar'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

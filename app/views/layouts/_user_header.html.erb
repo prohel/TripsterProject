@@ -18,9 +18,14 @@
           <li><%= link_to t('.showTripNotifications', :default => t("helpers.links.showTripNotifications")), showTripNotifications_trips_path, :method => :get,  :class => 'navbar-link' %></li>
           <li><%= link_to 'Recommendations', "/users/recommend", :class => 'navbar-link' %></li>
 
+          <li> <%= link_to t('.friends_list', :default => t('.friends_list')), "/users/friendslist", :class => 'navbar-link' %> </li>
+
+
         </ul>
         <ul class="nav pull-right">
 		<% if user_signed_in? %>
+      
+
 		<li><%= link_to "Logged in as #{current_user.name}"%>
 		</li><li>
   		<%= link_to t('.edit_profile', :default => t('.edit_profile')), edit_user_registration_path, :class => 'navbar-link' %>

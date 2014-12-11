@@ -1,7 +1,8 @@
 TripsterProject::Application.routes.draw do
   resources :attachment_comments
 
-
+  root to: 'users#newsfeed'
+  
   resources :album_comments
 
 
@@ -25,13 +26,22 @@ TripsterProject::Application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
+
+  resources :users do
+    collection do
+      get 'search'
+      get 'recommend'
+      get 'newsfeed'
+    end
+  end
+
   resources :users
 
   match 'like' => 'users#like', :via => [:post]
   match 'unlike' => 'users#unlike', :via => [:post]
   get 'newsfeed' => 'newsfeed#index'
   resources :locations
-  resources :trips_invites do
+  resources :trip_invites do
     collection do
       post 'requestTrip'
       # post 'acceptRequest'
@@ -56,14 +66,7 @@ TripsterProject::Application.routes.draw do
     end
   end
 
-  resources :users do
-    collection do
-      get 'search'
-      get 'recommend'
-    end
-  end
 
-  root to: 'trips#index'
   get 'friend/:id', to: 'users#addFriend', as: 'friend'
   # The priority is based upon order of creation:
   # first created -> highest priority.

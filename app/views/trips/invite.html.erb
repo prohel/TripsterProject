@@ -1,0 +1,3 @@
+<% @list.each do |friend| %>
+		<%= link_to friend.name, trip_invites_path(receiver: friend, trip_id: @trip.id, :accepted => 2), :method => :post %><br>
+		<% end %>

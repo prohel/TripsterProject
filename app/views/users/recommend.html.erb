@@ -1,3 +1,8 @@
-<% @recommendList.each do |recommendedFriend| %>
-		<%= link_to recommendedFriend.email, user_path(recommendedFriend) %><br>
+
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<% @friendsOfFriends.each do |friendOfFriend| %>
+		<%= link_to friendOfFriend.name, user_path(friendOfFriend) %><br>
 		<% end %>

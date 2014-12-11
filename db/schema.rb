@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
   create_table "user_locations", :force => true do |t|
     t.integer  "user_id",     :precision => 38, :scale => 0
     t.integer  "location_id", :precision => 38, :scale => 0
+    t.integer  "visited",     :precision => 38, :scale => 0
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
   end

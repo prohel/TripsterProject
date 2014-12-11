@@ -5,7 +5,7 @@
 	<% if @userSearches.size != 0 %>
 		<h5> Following users were found </h5>
 		<% @userSearches.each do |userSearch| %>
-		<%= link_to userSearch.email, user_path(userSearch) %><br>
+		<%= link_to userSearch.name, user_path(userSearch) %><br>
 		<% end %>
 	<% end %>
 	<% if @tripSearches.size != 0 %>

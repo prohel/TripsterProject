@@ -8,6 +8,7 @@ gem 'devise'
 gem 'sqlite3'
 gem 'ruby-oci8'
 gem 'omniauth-facebook'
+gem 'local_time'
 #ACTIVE RECORD ADAPTER for development mode
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
 gem 'twitter-bootstrap-rails'
@@ -15,6 +16,7 @@ gem "bootstrap-sass-rails", "~> 2.2.2.0"
 gem "therubyracer"
 gem "less-rails"
 gem "socialization"
+gem 'middleman-bootstrap-navbar'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

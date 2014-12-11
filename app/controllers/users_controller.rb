@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	 before_filter :set_User, only: [:addFriend, :show, :edit, :update, :destroy]
    helper_method :recommend
+
   # GET /Users
   # GET /Users.json
   def index
@@ -10,6 +11,47 @@ class UsersController < ApplicationController
   # GET /Users/1
   # GET /Users/1.json
   def show
+  end
+
+  def newsfeed
+    @news = []
+    friendsNotifications = []
+    tripsCreations = []
+    tripsInvites = []
+    friends = current_user.friends
+    friends.each do |f|
+      friendsNotifications += f.friendships
+    end
+    friendsNotifications.each do |notif|
+      @news << {
+        created_at: notif.created_at,
+        type: "friend",
+        owner_id: notif.user1.id,
+        target_id: notif.user2.id
+      }
+    end
+    friends.each do |friend|
+      friend.trips do |notif|
+        @news << {
+          created_at: notif.created_at,
+          type: "trip",
+          owner_id: notif.user.id,
+          target_id: notif.id
+        }
+      end
+    end
+    tripsNotifications = current_user.accepted_requests_and_invites
+    tripsNotifications.each do |notif|
+      trip = Trip.find(notif.trip_id)
+      owner = trip.created_by
+      @news << {
+        created_at: notif.updated_at,
+        type: "invite",
+        owner_id: notif.sender == owner ? notif.receiver.id : notif.sender.id,
+        target_id: notif.trip_id
+      }
+    end
+    @news = @news.sort_by{|n| n[:created_at]}.reverse
   end
 
   def addFriend
@@ -73,22 +115,15 @@ class UsersController < ApplicationController
   end
 
   def search
-    @userSearches = User.where("email like ?", "%#{params[:search]}%").order("created_at DESC")
+    @userSearches = User.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
     @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
   end
 
   def recommend
      @recommendList ||= []   
-     @userFriends = ActiveRecord::Base.connection.execute("SELECT user2_id 
-      from friendships where user1_id IN (SELECT user2_id from friendships
-        where user1_id = #{current_user.id}) EXCEPT 
-      SELECT user2_id from friendships where user1_id = #{current_user.id}")
-     @userFriends.each {|x| x.each do |key, value|
-                                      if key == "user2_id"
-                                        @recommendList << User.find(value)
-                                      end
-                                   end 
-                        }   
+     friends = current_user.friends
+     @friendsOfFriends = friends.map {|f| f.friends}.flatten
+      .delete_if {|f| friends.include?(f) || f == current_user}
   end
 
   def like

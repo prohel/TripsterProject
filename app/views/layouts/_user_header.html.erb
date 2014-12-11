@@ -1,7 +1,37 @@
-<ul class="navbar-text pull-right">
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-<% end %>
-</ul>
+
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <%= link_to 'Tripster', "/users/newsfeed", :class => 'brand' %>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li> <%= form_tag("/users/search", :method => "get", id: "search-form", class: "navbar-link") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Users/Trips", class: "search-bar" %>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-default btn-xs " %>
+        <% end %>  </li>
+          <li><%= link_to t('.showTripNotifications', :default => t("helpers.links.showTripNotifications")), showTripNotifications_trips_path, :method => :get,  :class => 'navbar-link' %></li>
+          <li><%= link_to 'Recommendations', "/users/recommend", :class => 'navbar-link' %></li>
+
+        </ul>
+        <ul class="nav pull-right">
+		<% if user_signed_in? %>
+		<li><%= link_to "Logged in as #{current_user.name}"%>
+		</li><li>
+  		<%= link_to t('.edit_profile', :default => t('.edit_profile')), edit_user_registration_path, :class => 'navbar-link' %>
+  		</li><li>
+  		<%= link_to t("logout", :default => t('.logout')), destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+  		</li>
+		<% end %>
+		</ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+

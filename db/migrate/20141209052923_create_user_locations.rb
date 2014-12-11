@@ -3,7 +3,7 @@ class CreateUserLocations < ActiveRecord::Migration
     create_table :user_locations do |t|
       t.references :user
       t.references :location
-
+      t.integer :visited
       t.timestamps
     end
     add_index :user_locations, :user_id

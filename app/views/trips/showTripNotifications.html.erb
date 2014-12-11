@@ -6,24 +6,18 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <!--<th><%= model_class.human_attribute_name(:id) %></th>-->
       <th><%= model_class.human_attribute_name(:requested_to) %></th>
       <th><%= model_class.human_attribute_name(:trip) %></th> 
       <th><%= model_class.human_attribute_name(:status) %></th>
-      <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
     </tr>
   </thead>
   <tbody>
     <% @myRequestsToJoinTrip.each do |trip| %>
       <tr>
-        <td><%= trip.receiver_email %></td>
+        <td><%= trip.receiver.name %></td>
         <% tripObject = Trip.find(trip.trip_id) %>
         <td><%= link_to tripObject.name, trip_path(trip.trip_id) %></td>
-        <% if trip.accepted == 2 then status = "Pending" %>
-        <% elsif trip.accepted == 1 then status = "Accepted" %>
-        <% else status = "Declined"%>
-        <% end %>
-        <td><%= status %></td>
+        <td><%= trip.status %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,25 +28,18 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <!--<th><%= model_class.human_attribute_name(:id) %></th>-->
       <th><%= model_class.human_attribute_name(:invitee) %></th>
       <th><%= model_class.human_attribute_name(:trip) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
-      <!-- <th><%= model_class.human_attribute_name(:created_by) %></th> -->
-      <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
     </tr>
   </thead>
   <tbody>
     <% @friendsInvitedToTrip.each do |trip| %>
       <tr>
-        <td><%= trip.receiver_email %></td>
+        <td><%= trip.receiver.name %></td>
         <% tripObject = Trip.find(trip.trip_id) %>
         <td><%= link_to tripObject.name, trip_path(trip.trip_id) %></td>
-        <% if trip.accepted == 2 then status = "Pending" %>
-        <% elsif trip.accepted == 1 then status = "Accepted" %>
-        <% else status = "Declined"%>
-        <% end %>
-        <td><%= status %></td>
+        <td><%= trip.status %></td>
       </tr>
     <% end %>
   </tbody>
@@ -69,16 +56,20 @@
   <tbody>
     <% @requestsToJoinMyTrip.each do |trip| %>
       <tr>
-        <td><%= trip.sender_email %></td>
+        <td><%= trip.sender.name %></td>
         <% tripObject = Trip.find(trip.trip_id) %>
         <td><%= link_to tripObject.name, trip_path(trip.trip_id) %></td>
         <td>
+          <%if trip.accepted == 2%>
           <%= link_to t('.accept', :default => t("helpers.links.accept")),
-                      edit_trips_invite_path(:id => trip.id, :sender_email => trip.sender_email, :receiver_email => trip.receiver_email, :tripid => trip.trip_id, :accepted => "1"), :class => 'btn btn-default btn-xs' %>
+                      edit_trip_invite_path(:id => trip.id, :accepted => "1"), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.decline', :default => t("helpers.links.decline")),
-                      edit_trips_invite_path(:id => trip.id, :sender_email => trip.sender_email, :receiver_email => trip.receiver_email, :tripid => trip.trip_id, :accepted => "0"),
+                      edit_trip_invite_path(:id => trip.id, :accepted => "0"),
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure you want to decline the invite?')) },
                       :class => 'btn btn-xs btn-danger' %>
+        <%else%>
+          <%= trip.status%>
+        <%end%>
         </td>
       </tr>
     <% end %>
@@ -92,7 +83,6 @@
 <p><strong>Invites to Join a Friend's trip</strong></p>
   <thead>
     <tr>
-      <!--<th><%= model_class.human_attribute_name(:id) %></th>-->
       <th><%= model_class.human_attribute_name(:requested_by) %></th>
       <th><%= model_class.human_attribute_name(:trip) %></th> 
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -101,15 +91,15 @@
   <tbody>
     <% @requestsToJoinFriendsTrip.each do |trip| %>
       <tr>
-        <td><%= trip.sender_email %></td>
+        <td><%= trip.sender.name %></td>
         <% tripObject = Trip.find(trip.trip_id) %>
         <td><%= link_to tripObject.name, trip_path(trip.trip_id) %></td>
         <td>
           <%if trip.accepted != 1%>
           <%= link_to t('.accept', :default => t("helpers.links.accept")),
-                      edit_trips_invite_path(:id => trip.id, :sender_email => trip.sender_email, :receiver_email => trip.receiver_email, :tripid => trip.trip_id, :accepted => "1"), :class => 'btn btn-default btn-xs' %>
+                      edit_trip_invite_path(:id => trip.id, :accepted => "1"), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.decline', :default => t("helpers.links.decline")),
-                      edit_trips_invite_path(:id => trip.id, :sender_email => trip.sender_email, :receiver_email => trip.receiver_email, :tripid => trip.trip_id, :accepted => "0"),
+                      edit_trip_invite_path(:id => trip.id, :accepted => "0"),
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure you want to decline the invite?')) },
                       :class => 'btn btn-xs btn-danger' %>
           <%end%>

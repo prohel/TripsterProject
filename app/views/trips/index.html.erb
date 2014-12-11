@@ -7,22 +7,20 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:start_date) %></th>
       <th><%= model_class.human_attribute_name(:end_date) %></th>
-      <th><%= model_class.human_attribute_name(:created_by) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @userTrips.each do |trip| %>
       <tr>
-        <td><%= link_to trip.id, trip_path(trip) %></td>
         <td><%= link_to trip.name, trip_path(trip) %></td>
-        <td><%= trip.start_date %></td>
-        <td><%= trip.end_date %></td>
-        <td><%= trip.created_by %></td>
+        <td><%= trip.start_date.to_date %></td>
+        <td><%= trip.end_date.to_date %></td>
+        <td><%= trip.created_at.to_date %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_trip_path(trip), :class => 'btn btn-default btn-xs' %>
@@ -43,7 +41,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:start_date) %></th>
       <th><%= model_class.human_attribute_name(:end_date) %></th>
@@ -55,13 +52,12 @@
     <% @friends.each do |friend| %>
       <% friend.trips.each do |trip| %>
         <tr>
-          <td><%= trip.id %></td>
           <td><%= trip.name %></td>
-          <td><%= trip.start_date %></td>
-          <td><%= trip.end_date %></td>
-          <td><%= trip.created_by %></td>
+          <td><%= trip.start_date.to_date %></td>
+          <td><%= trip.end_date.to_date %></td>
+          <td><%= trip.user.name %></td>
           <%if !trip.isMember(current_user)%>
-          <td> <%= link_to t('.requestTrips', :default => t("helpers.links.request")), requestTrip_trips_invites_path(:trip_id => trip.id, :accepted => 2), :method => :post,  :class => 'btn btn-default btn-xs' %> </td>
+          <td> <%= link_to t('.requestTrips', :default => t("helpers.links.request")), requestTrip_trip_invites_path(:trip_id => trip.id, :accepted => 2), :method => :post,  :class => 'btn btn-default btn-xs' %> </td>
           <%end%>
         </tr>
       <% end %>

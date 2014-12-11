@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   has_many :trips, :foreign_key => "created_by"
   has_many :albums, :foreign_key => "created_by"
   has_many :attachments, :foreign_key => "created_by"
-  has_many :trip_invites, :foreign_key => "sender"
-  has_many :trip_requests, class_name: "TripInvite", :foreign_key => "receiver"
+  has_many :trip_invites, :foreign_key => "sender", as: :sender
+  has_many :trip_requests, class_name: "TripInvite", :foreign_key => "receiver", as: :receiver
   has_many  :trips_joined, :through => :trip_invites, 
           :class_name => "Trip", 
           :source => :trip,
@@ -50,10 +50,6 @@ class User < ActiveRecord::Base
     friendships_request = Friendship.where("user1_id = ?", self.id)
     friendships_request.each do |fr|
       result << fr.user2_id if fr.isReciprocate
-    end
-    friendships_invites = Friendship.where("user2_id = ?", self.id)
-    friendships_invites.each do |fi|
-      result << fi.user1_id if fi.isReciprocate && !result.include?(fi.user1_id)
     end
     User.find(result)
   end
@@ -100,6 +96,9 @@ class User < ActiveRecord::Base
     TripInvite.joins(:trip).where("receiver = ? AND sender = trips.created_by", id)
   end
 
+  def accepted_requests_and_invites
+    TripInvite.where("(receiver = ? OR sender = ?) AND accepted = 1", id, id)
+  end
 
  acts_as_liker
 

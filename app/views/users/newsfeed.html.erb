@@ -1,0 +1,12 @@
+<h3> Welcome back, <%=current_user.name%> </h3>
+<%@news.each do |n|%>
+<% if n[:type] == "trip"%> 
+	<%=render "tripnotif", n: n %>
+<%end%>
+<% if n[:type] == "invite"%> 
+	<%=render 'invitenotif', n: n %>
+<%end%>
+<% if n[:type] == "friend"%> 
+	<%=render 'friendnotif', n: n%>
+<%end%>
+<%end%>

@@ -1,7 +1,7 @@
 TripsterProject::Application.routes.draw do
   resources :attachment_comments
 
-  root to: 'trips#index'
+  root to: 'users#newsfeed'
   
   resources :album_comments
 
@@ -26,11 +26,12 @@ TripsterProject::Application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  
+
   resources :users do
     collection do
       get 'search'
       get 'recommend'
+      get 'newsfeed'
     end
   end
 

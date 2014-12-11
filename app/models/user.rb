@@ -96,6 +96,9 @@ class User < ActiveRecord::Base
     TripInvite.joins(:trip).where("receiver = ? AND sender = trips.created_by", id)
   end
 
+  def accepted_requests_and_invites
+    TripInvite.where("(receiver = ? OR sender = ?) AND accepted = 1", id, id)
+  end
 
  acts_as_liker
 

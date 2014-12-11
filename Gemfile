@@ -8,6 +8,7 @@ gem 'devise'
 gem 'sqlite3'
 gem 'ruby-oci8'
 gem 'omniauth-facebook'
+gem 'local_time'
 #ACTIVE RECORD ADAPTER for development mode
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
 gem 'twitter-bootstrap-rails'

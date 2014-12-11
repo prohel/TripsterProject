@@ -1,0 +1,4 @@
+<div class="well well-sm">
+<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+<strong><%= User.find(n[:owner_id]).name%></strong> became friend with <strong><%= User.find(n[:target_id]).name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+ </div>

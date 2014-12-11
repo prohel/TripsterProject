@@ -77,6 +77,8 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
+    local_time (1.0.1)
+      coffee-rails
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -192,6 +194,7 @@ DEPENDENCIES
   devise
   jquery-rails
   less-rails
+  local_time
   middleman-bootstrap-navbar
   omniauth-facebook
   rails (= 3.2.21)

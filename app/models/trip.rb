@@ -28,12 +28,13 @@ class Trip < ActiveRecord::Base
       invited_members.include?(user)
   end
 
+
   def invited_members
-    TripInvite.where("sender = ? AND trip_invites.accepted = 1", created_by).map(&:receiver)
+    accepted_invites.map(&:receiver)
   end
 
   def accepted_members
-    TripInvite.where("receiver = ? AND trip_invites.accepted = 1", created_by).map(&:sender)
+    accepted_requests.map(&:sender)
   end
 
   def requests
@@ -45,19 +46,27 @@ class Trip < ActiveRecord::Base
   end
 
   def pending_requests
-    TripInvite.where("receiver = ? AND accepter = 2", created_by)
+    TripInvite.where("receiver = ? AND accepted = 2", created_by)
   end
 
   def pending_invites
-    TripInvite.where("sender = ? AND accepter = 2", created_by)
+    TripInvite.where("sender = ? AND accepted = 2", created_by)
   end
 
   def declined_requests
-    TripInvite.where("receiver = ? AND accepter = 0", created_by)
+    TripInvite.where("receiver = ? AND accepted = 0", created_by)
   end
 
   def declined_invites
-    TripInvite.where("sender = ? AND accepter = 0", created_by)
+    TripInvite.where("sender = ? AND accepted = 0", created_by)
+  end
+
+  def accepted_requests
+    TripInvite.where("receiver = ? AND accepted = 1", created_by)
+  end
+
+  def accepted_invites
+    TripInvite.where("sender = ? AND accepted = 1", created_by)
   end
 
 end

@@ -33,6 +33,7 @@ TripsterProject::Application.routes.draw do
       get 'recommend'
       get 'newsfeed'
       get 'friendslist'
+      get 'bingsearch'
     end
   end
 

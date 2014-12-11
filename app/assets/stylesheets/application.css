@@ -65,3 +65,9 @@ img.thumbnail {
   height:100px;
   max-width:200px;
 }
+
+.bordered_cells{
+  border-style: solid;
+  border-width: 2px;
+  padding: 5px;
+}

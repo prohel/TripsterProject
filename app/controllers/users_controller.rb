@@ -114,6 +114,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def bingsearch
+    #Bing Web Searches
+    bing_web = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Web')
+    @bing_results_web = bing_web.search(params[:search])
+
+    #Bing Image Searches
+    bing_image = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Image')
+    @bing_results_images = bing_image.search(params[:search])
+
+    
+    #Bing Videos
+    bing_video = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Video')
+    @bing_results_videos = bing_video.search(params[:search])
+  end
+
   def search
     @userSearches = User.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
     @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")

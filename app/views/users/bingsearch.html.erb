@@ -1,0 +1,24 @@
+<h3> Here are your search results </h3>
+<table class="bordered_cells">
+<th class="bordered_cells">
+<h5> Here are your top 10 web search results </h5>
+<% (0..9).each do |i| %>
+<a href="<%= @bing_results_web[0][:Web][i][:Url] %>" target="_blank">
+	<%= @bing_results_web[0][:Web][i][:Title] %></a><br/>
+<% end %>
+</th >
+<th class="bordered_cells">
+<h5> Here are your top 10 image results </h5>
+<% (0..9).each do |i| %>
+<a href="<%= @bing_results_images[0][:Image][i][:MediaUrl] %>" target="_blank">
+	<%= @bing_results_images[0][:Image][i][:Title] %></a><br/>
+<% end %>
+</th>
+<th class="bordered_cells">
+<h5> Here are your top 10 video results </h5>
+<% (0..9).each do |i| %>
+<a href="<%= @bing_results_videos[0][:Video][i][:MediaUrl] %>" target="_blank">
+	<%= @bing_results_videos[0][:Video][i][:Title] %></a><br/>
+<% end %>
+</th>
+</table>

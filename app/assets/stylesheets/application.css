@@ -25,6 +25,11 @@ body #container.content {
   width:600px;
 }
 
+a:hover {
+  color:transparent;
+  background-color: transparent;
+}
+
 
 body h3, h5 {
   margin-top:20px;

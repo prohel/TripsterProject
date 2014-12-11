@@ -4,4 +4,5 @@
           <li> <%= link_to t('.friends_list', :default => t('.friends_list')), "/users/friendslist", :class => 'navbar-link' %> </li>
 
           <li><%= link_to t('.myTripNotifications', :default => t("helpers.links.myTripNotifications")), showTripNotifications_trips_path, :method => :get,  :class => 'navbar-link' %></li>
+          <li><%= link_to t('.myPlaces', :default => t("helpers.links.myPlaces")), user_user_locations_path(current_user.id), :method => :get,  :class => 'navbar-link' %></li>
           </ul>

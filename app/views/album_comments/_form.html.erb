@@ -1,4 +1,4 @@
-<%= form_for @album_comment, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for [@trip, @album, @album_comment] , :html => { :class => "form-horizontal attachment_comment"} do |f| %>
   <div class="control-group">
     <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">

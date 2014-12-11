@@ -4,36 +4,51 @@ class AlbumCommentsController < ApplicationController
   respond_to :html
 
   def index
+    @trip = Trip.find(params[:trip_id])
+    @album = Album.find(params[:album_id])
     @album_comments = AlbumComment.all
-    respond_with(@album_comments)
+    respond_with(@trip, @album, @album_comments)
   end
 
   def show
-    respond_with(@album_comment)
+    @trip = Trip.find(params[:trip_id])
+    @album = Album.find(params[:album_id])
+    respond_with(@trip, @album, @album_comment)
   end
 
   def new
-    @album_comment = AlbumComment.new
-    respond_with(@album_comment)
+    @trip = Trip.find(params[:trip_id])
+    @album = Album.find(params[:album_id])
+    @album_comment = @trip.album.album_comments.new
+    #@album_comment = AlbumComment.new
+    @album_comment.user_id = current_user.id
+    respond_with(@trip, @album, @album_comment)
   end
 
   def edit
+    @trip = Trip.find(params[:trip_id])
+    @album = Album.find(params[:album_id])
+    respond_with(@trip @album, @album_comment)
   end
 
   def create
     @album_comment = AlbumComment.new(params[:album_comment])
     @album_comment.save
-    respond_with(@album_comment)
+    @trip = Trip.find(params[:trip_id])
+    @album = Album.find(params[:album_id])
+    respond_with(@trip, @album, @album_comment)
   end
 
   def update
     @album_comment.update_attributes(params[:album_comment])
-    respond_with(@album_comment)
+    @album = Album.find(params[:album_id])
+    respond_with(@album, @album_comment)
   end
 
-  def destroy
+  def destroy])
+    @album = Album.find(params[:album_id])
     @album_comment.destroy
-    respond_with(@album_comment)
+    respond_with(@album)
   end
 
   private

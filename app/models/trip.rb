@@ -5,6 +5,8 @@ class Trip < ActiveRecord::Base
   validates :name, presence: true
   belongs_to :user, foreign_key: "created_by"
   acts_as_likeable
+  has_many :albums
+  has_many :attachments
   has_many :members_invited, through: :trip_invites, foreign_key: "trip", source: "receiver", conditions: ["trip_invite.sender = ?, trip_invite.accepted = ?", :created_by, 1]
   has_many :members_accepted, through: :trip_invites, foreign_key: "trip", source: "sender", conditions: ["trip_invite.receiver = ?, trip_invite.accepted = ?", :created_by, 1]
   has_many :requests, class_name: "TripInvite", foreign_key: "trip", conditions: ["trip_invite.receiver = ?", :created_by]

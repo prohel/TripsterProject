@@ -42,8 +42,8 @@ TripsterProject::Application.routes.draw do
 
   resources :trips do
     resources :albums do
-      resources :albums_comments
-      resources :albums_ratings
+      resources :album_comments
+      resources :album_ratings
     end
     resources :attachments do
       resources :attachment_comments

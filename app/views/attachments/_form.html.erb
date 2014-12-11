@@ -1,4 +1,4 @@
-<%= form_for @attachment, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for [@trip, @attachment] , :html => { :class => "form-horizontal attachment"} do |f| %>
   <div class="control-group">
     <%= f.label :name, :class => 'control-label' %>
     <div class="controls">
@@ -8,25 +8,7 @@
   <div class="control-group">
     <%= f.label :attachment_type, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :attachment_type, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :trip_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :trip_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :album_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :album_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :created_by, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :created_by, :class => 'number_field' %>
+      <%= f.select :attachment_type, Attachment::ATTACHMENT_TYPES %>
     </div>
   </div>
   <div class="control-group">
@@ -41,10 +23,34 @@
       <%= f.text_field :description, :class => 'text_field' %>
     </div>
   </div>
+  <div class="control-group">
+    <%= f.label :trip_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= Trip.find(@attachment.trip_id).name %>
+      <%= f.hidden_field :trip_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :album_id, :class => 'control-label' %>
+    <div class="controls">
+      <% unless @attachment.album.blank? then %>
+        <%= Album.find(@attachment.album_id).name %>
+      <% else %>None
+      <% end %><br>
+      <%= f.hidden_field :album_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :created_by, :class => 'control-label' %>
+    <div class="controls">
+      <%= User.find(@attachment.created_by).name %>
+      <%= f.hidden_field :created_by, :class => 'number_field' %>
+    </div>
+  </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                attachments_path, :class => 'btn' %>
+                trip_path(@trip), :class => 'btn' %>
   </div>
 <% end %>

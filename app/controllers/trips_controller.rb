@@ -12,6 +12,8 @@ class TripsController < ApplicationController
   # GET /trips/1.json
   def show
     @creator = User.find(@trip.created_by)
+    @albums = @trip.albums
+    @attachments = @trip.attachments
   end
 
   # GET /trips/new

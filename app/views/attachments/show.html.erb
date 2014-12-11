@@ -8,26 +8,46 @@
   <dd><%= @attachment.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:attachment_type) %>:</strong></dt>
   <dd><%= @attachment.attachment_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:trip_id) %>:</strong></dt>
-  <dd><%= @attachment.trip_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:album_id) %>:</strong></dt>
-  <dd><%= @attachment.album_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:created_by) %>:</strong></dt>
-  <dd><%= @attachment.created_by %></dd>
   <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
-  <dd><%= @attachment.url %></dd>
+  <dd>
+    <% unless @attachment.url.blank? then %>
+      <%= @attachment.url %>
+    <% else %>N/A
+    <% end %>
+  </dd>
+  <dt><strong><%= model_class.human_attribute_name(:trip_id) %>:</strong></dt>
+  <dd><%= Trip.find(@attachment.trip_id).name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:album_id) %>:</strong></dt>
+  <dd>
+    <% unless @attachment.album_id.blank? then %>
+      <%= Album.find(@attachment.album_id).name %>
+    <% else %>None
+    <% end %><br>
+  </dd>
+  <dt><strong><%= model_class.human_attribute_name(:created_by) %>:</strong></dt>
+  <dd><%= User.find(@attachment.created_by).name %></dd>
+
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @attachment.description %></dd>
+
 </dl>
+
+<% if @attachment.attachment_type == "Link" %>
+  <a href="<%= @attachment.url %>"><h2>Click here to follow link</h2></a><br>
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              attachments_path, :class => 'btn'  %>
+              trip_path(@attachment.trip_id), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_attachment_path(@attachment), :class => 'btn' %>
+              edit_trip_attachment_path(@attachment.trip_id), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              attachment_path(@attachment),
+              trip_attachment_path(@attachment.trip_id, @attachment),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+<% if @attachment.attachment_type == "Image" %>
+  <a href="<%= @attachment.url %>"><img src="<%= @attachment.url %>" alt="<%= @attachment.name %>"></a>
+<% end %>

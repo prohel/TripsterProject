@@ -18,10 +18,17 @@
   <%= link_to t('.back', :default => t("helpers.links.back")),
               trips_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_trip_path(@trip), :class => 'btn' %>
+              edit_trip_path, :class => 'btn' %>
+  <%= link_to t('.add', :default => t("helpers.links.add_album")),
+              new_trip_album_path(@trip), :class => 'btn btn-default' %>
+  <%= link_to t('.add', :default => t("helpers.links.add_attachment")),
+              new_trip_attachment_path(@trip), :class => 'btn btn-default' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               trip_path(@trip),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+<%= render :template => 'albums/index', :collection => @trip.albums, :locals => {trip: @trip} %>
+<%= render :template => 'attachments/index', :collection => @trip.attachments, :locals => {trip: @trip} %>

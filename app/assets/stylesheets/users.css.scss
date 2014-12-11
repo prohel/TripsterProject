@@ -4,8 +4,6 @@
 
 #sidebar-wrapper {
   width: 200px;
-  background-color: #F5F5F5;
-  border: 1px solid #E3E3E3;
   height: 100%;
   display:inline-block;
   overflow-y: auto;
@@ -13,8 +11,14 @@
   vertical-align:top;
   margin-top:70px;
   margin-right:50px;
-  padding-left:15px;
   transition: all 0.4s ease 0s;
+}
+
+#sidebar-box {
+  padding-left:15px;
+  margin-bottom:20px;
+  background-color: #F5F5F5;
+  border: 1px solid #E3E3E3;
 }
 
 #recommendations {

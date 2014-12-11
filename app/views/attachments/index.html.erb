@@ -26,11 +26,13 @@
         <td><%= User.find(attachment.created_by).name %></td>
         <td><%=l attachment.created_at %></td>
         <td>
-          <% if attachment.attachment_type == "Image" %>
+          <% if attachment.attachment_type == "photo" %>
             <a href="<%= attachment.url %>"><img src="<%= attachment.url %>" alt="<%= attachment.name %>" class="thumbnail"></a>
-          <% elsif attachment.attachment_type == "Link" %>
+          <% elsif attachment.attachment_type == "link" %>
             <a href="<%= attachment.url %>">Follow Link</a>
-        <% end %>
+          <% elsif attachment.attachment_type == "video" %>
+            <a href="<%= attachment.url %>">View Video</a>
+          <% end %>
         </td>
       </tr>
     <% end %>

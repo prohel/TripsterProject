@@ -32,7 +32,7 @@
 
 </dl>
 
-<% if @attachment.attachment_type == "Link" %>
+<% if @attachment.attachment_type == "video" || @attachment.attachment_type == "link"%>
   <a href="<%= @attachment.url %>"><h2>Click here to follow link</h2></a><br>
 <% end %>
 
@@ -48,6 +48,6 @@
               :class => 'btn btn-danger' %>
 </div>
 
-<% if @attachment.attachment_type == "Image" %>
+<% if @attachment.attachment_type == "photo" %>
   <a href="<%= @attachment.url %>"><img src="<%= @attachment.url %>" alt="<%= @attachment.name %>"></a>
 <% end %>

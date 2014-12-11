@@ -33,10 +33,13 @@
         <td><%= attachment.name %><br></td>
         <td>Created by: <%= User.find(attachment.created_by).name %></td><br>
         <td>
-          <% if attachment.attachment_type == "Image" %>
+          <% if attachment.attachment_type == "photo" %>
             <%= link_to image_tag(attachment.url), trip_attachment_path(attachment.trip_id, attachment) %>
-          <% elsif attachment.attachment_type == "Link" %>
+          <% elsif attachment.attachment_type == "link" %>
             <a href="<%= attachment.url %>"><u>Link</u></a>
+            <td><%= link_to 'Show', trip_attachment_path(attachment.trip_id, attachment) %></td>
+          <% elsif attachment.attachment_type == "video" %>
+            <a href="<%= attachment.url %>"><u>Video</u></a>
             <td><%= link_to 'Show', trip_attachment_path(attachment.trip_id, attachment) %></td>
           <% end %>
         </td>

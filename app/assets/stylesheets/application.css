@@ -50,6 +50,10 @@ body > div.masthead ul > li {
   margin-top: 2;  
 }
 
+.search-bar {
+  width: 250px;
+}
+
 .border-form-div {
   max-width: 300px;
   padding: 19px 29px 29px;

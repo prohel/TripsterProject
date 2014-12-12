@@ -146,6 +146,9 @@ class UsersController < ApplicationController
   end
 
   def bingsearch
+    #Tripster searche for user and trips
+    @userSearches = User.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
+    @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
     #Bing Web Searches
     bing_web = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Web')
     @bing_results_web = bing_web.search(params[:search])

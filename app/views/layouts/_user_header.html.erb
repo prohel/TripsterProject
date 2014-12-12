@@ -11,13 +11,9 @@
       <%= link_to 'Tripster', "/users/newsfeed", :class => 'brand' %>
       <div class="nav-collapse">
         <ul class="nav">
-          <li> <%= form_tag("/users/search", :method => "get", id: "search-form", class: "navbar-link") do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search Users/Trips", class: "search-bar" %>
-        <%= submit_tag "Search", :name => nil, class: "btn btn-default btn-xs " %>
-        <% end %>  </li>
-
+          
         <li> <%= form_tag("/users/bingsearch", :method => "get", id: "search-form", class: "navbar-link") do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search the Web on Bing!", class: "search-bar" %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Tripster and the Web on Bing!", class: "search-bar" %>
         <%= submit_tag "Search", :name => nil, class: "btn btn-default btn-xs " %>
         <% end %>  </li>
         <li> <%= form_tag("/users/trendingdreamlocation", :method => "get", class: "navbar-link") do %>

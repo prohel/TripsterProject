@@ -16,13 +16,16 @@
     </tr>
     <tr>
       <th><%= model_class.human_attribute_name(:location_id) %></th>
-      <th><%=t '.added_on', :default => t("helpers.added_on") %></th>
+      <th><%=t '.image', :default => t("helpers.bing_results_images") %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
     <% @placesVisited.each do |user_location| %>
+      <% locName = Location.find(user_location.location_id).name %>
       <tr>
-        <td><%= Location.find(user_location.location_id).name %></td>
-        <td><%=l user_location.created_at %></td>
+        <td> <%= locName %> </td>
+        <% bing_image = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 3, 'Image') %>
+        <% bing_results_images = bing_image.search(locName) %>
+        <td> <img src="<%= bing_results_images[0][:Image][0][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][1][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][2][:MediaUrl] %>" height="150" width="150" > </td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_user_location_path(@user, user_location), :class => 'btn btn-mini' %>
@@ -39,13 +42,16 @@
     </tr>
     <tr>
       <th><%= model_class.human_attribute_name(:location_id) %></th>
-      <th><%=t '.added_on', :default => t("helpers.added_on") %></th>
+      <th><%=t '.image', :default => t("helpers.bing_results_images") %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
     <% @dreamlist.each do |user_location| %>
+      <% loc = Location.find(user_location.location_id) %>
       <tr>
-        <td><%= Location.find(user_location.location_id) %></td>
-        <td><%=l user_location.created_at %></td>
+        <td> <%= loc.name %> </td>
+        <% bing_image = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 3, 'Image') %>
+        <% bing_results_images = bing_image.search(loc.name) %>
+        <td> <img src="<%= bing_results_images[0][:Image][0][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][1][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][2][:MediaUrl] %>" height="150" width="150" > </td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_user_location_path(@user, user_location), :class => 'btn btn-mini' %>

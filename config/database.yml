@@ -3,12 +3,20 @@
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
+
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
 development:
-  adapter: oracle_enhanced
-  #database: "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=tripsterdatabaseinstance.cxxwj3xj1d9i.us-east-1.rds.amazonaws.com)(PORT=1521)))(CONNECT_DT_DATA=(SERVICE_NAME=(SID=Tripster)))"
-  database: "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=tripsterdb.cns6smumxgkn.us-east-1.rds.amazonaws.com)(Port=1521))(CONNECT_DATA=(SID=Tripster)))"
-  username: TripsterProject
-  password: Tripster2014
+  <<: *default
+  database: db/test.sqlite3
+  # adapter: oracle_enhanced
+  # #database: "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=tripsterdatabaseinstance.cxxwj3xj1d9i.us-east-1.rds.amazonaws.com)(PORT=1521)))(CONNECT_DT_DATA=(SERVICE_NAME=(SID=Tripster)))"
+  # database: "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=tripsterdb.cns6smumxgkn.us-east-1.rds.amazonaws.com)(Port=1521))(CONNECT_DATA=(SID=Tripster)))"
+  # username: TripsterProject
+  # password: Tripster2014
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

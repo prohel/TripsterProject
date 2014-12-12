@@ -1,0 +1,10 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<% @locs.each do |loc| %>
+		 <% bing_web = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 1, 'Web') %>
+    	<%  @bing_results_web = bing_web.search(loc.name) %>
+    	<a href="<%= @bing_results_web[0][:Web][0][:Url] %>" target="_blank">
+	<%= loc.name %></a><br/>
+<% end %>

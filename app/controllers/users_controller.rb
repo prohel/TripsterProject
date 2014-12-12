@@ -130,6 +130,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def trendingdreamlocation
+    @dl = UserLocation.select('location_id').where("visited = ?", 0).group('location_id').order('count_location_id desc').count('location_id').take(5)
+    # @dl = UserLocation.where("visited = ?", 0)
+    # @ids = @dl.map {|i| i.location_id }
+    @locs ||= []
+    @dl.each do |key, val|
+      @locs << Location.find(key)
+      @count = val
+    end
+    # @locs = Location.where("id in (?)", @ids)
+      # tl = UserLocation.where("visited = ? AND location_id in (?) ", 0, @ids)
+    # dream_locations = UserLocation.where("visited = ?", 0)
+    # @trendy_locations = UserLocation.where("visited = ? AND location_id =", 0 and dream_locations.id) 
+  end
+
   def bingsearch
     #Bing Web Searches
     bing_web = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Web')

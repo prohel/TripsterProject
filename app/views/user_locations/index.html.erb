@@ -6,7 +6,7 @@
             new_user_user_location_path(@user, params: {visited: 1}),
             :class => 'btn btn-primary' %>
 <%= link_to t('.new_place_on_dreamlist', :default => t("helpers.links.new_place_on_dreamlist")),
-            new_user_user_location_path(@user, params: {visited: 1}),
+            new_user_user_location_path(@user, params: {visited: 0}),
             :class => 'btn btn-primary' %>
 
 <table style="margin-top:10px" class="table table-striped">

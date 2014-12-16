@@ -29,8 +29,8 @@ class UserLocationsController < ApplicationController
     locationName = params[:user_location][:location]
     @location = Location.find_by_name(locationName)
     if @location.blank?
-      @location = Location.new({
-        name: locationName
+      @location = Location.create({
+          name: locationName
         })
     end
     @user_location = UserLocation.new({
@@ -52,7 +52,7 @@ class UserLocationsController < ApplicationController
   def destroy
     @user = User.find(params[:user_id])
     @user_location.destroy
-    respond_with(@user_location)
+    redirect_to action: :index
   end
 
   private

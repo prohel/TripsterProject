@@ -19,8 +19,10 @@
       <th><%=t '.image', :default => t("helpers.bing_results_images") %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
-    <% @placesVisited.each do |user_location| %>
-      <% locName = Location.find(user_location.location_id).name %>
+    <% @placesVisited.each do |user_loc| %>
+    <%p "|||||"%>
+    <%p user_loc%>
+      <% locName = Location.find(user_loc.location_id).name %>
       <tr>
         <td> <%= locName %> </td>
         <% bing_image = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 3, 'Image') %>
@@ -28,9 +30,9 @@
         <td> <img src="<%= bing_results_images[0][:Image][0][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][1][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][2][:MediaUrl] %>" height="150" width="150" > </td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_user_user_location_path(@user, user_location), :class => 'btn btn-mini' %>
+                      edit_user_user_location_path(@user, user_loc), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      user_user_location_path(@user, user_location),
+                      user_user_location_path(@user, user_loc),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>

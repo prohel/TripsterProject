@@ -1,26 +1,22 @@
-<%= form_for [@trip, @album, @album_comment] , :html => { :class => "form-horizontal attachment_comment"} do |f| %>
+<%= form_for [@trip, @album, @album_comment] do |f| %>
   <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :user_id, :class => 'number_field' %>
+      <%= f.hidden_field :user_id, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :album_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :album_id, :class => 'number_field' %>
+      <%= f.hidden_field :album_id, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
+    Add a comment
     <div class="controls">
-      <%= f.text_area :description, :class => 'text_area' %>
+      <%= f.text_area :description, :class => 'text_area span7', :rows => '5' %>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                album_comments_path, :class => 'btn' %>
+    <%= f.submit "Post Comment", :class => 'btn btn-primary' %>
   </div>
 <% end %>

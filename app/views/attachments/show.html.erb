@@ -51,3 +51,9 @@
 <% if @attachment.attachment_type == "photo" %>
   <a href="<%= @attachment.url %>"><img src="<%= @attachment.url %>" alt="<%= @attachment.name %>"></a>
 <% end %>
+
+<h3>Comments</h3>
+
+<%= render :partial => 'attachment_comments/form' %>
+
+<%= render :template => 'attachment_comments/index', :collection => @attachment.attachment_comments, :locals => {attachment_id: @attachment} %>

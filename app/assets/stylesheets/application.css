@@ -65,3 +65,11 @@ img.thumbnail {
   height:100px;
   max-width:200px;
 }
+
+table.comment-table {
+  max-width:800px;
+}
+
+td.comment-cell {
+  max-width:500px;
+}

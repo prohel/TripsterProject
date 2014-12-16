@@ -47,7 +47,11 @@
     </tr>
 <% end %>
 
+<h3>Comments</h3>
+
 <%= render :partial => 'album_comments/form' %>
+
+<%= render :template => 'album_comments/index', :collection => @album.album_comments, :locals => {album_id: @album} %>
 
 
  

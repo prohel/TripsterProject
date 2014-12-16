@@ -2,15 +2,16 @@
 <div class="page-header">
   <h1><%=t '.title', :default => "Trip Notifications" %></h1>
 </div>
-<p><strong>My Requests</strong></p>
+
 <table class="table table-striped">
-  <thead>
+<tr>
+  <td colspan="3" style="background-color:#A3CCCC"><h4>My Requests</strong></p></td>
+  </tr>
     <tr>
       <th><%= model_class.human_attribute_name(:requested_to) %></th>
       <th><%= model_class.human_attribute_name(:trip) %></th> 
       <th><%= model_class.human_attribute_name(:status) %></th>
     </tr>
-  </thead>
   <tbody>
     <% @myRequestsToJoinTrip.each do |trip| %>
       <tr>
@@ -20,20 +21,14 @@
         <td><%= trip.status %></td>
       </tr>
     <% end %>
-  </tbody>
-  </table>
-
-<table class="table table-striped">
-<p><strong>My Invites</strong></p>
-<table class="table table-striped">
-  <thead>
+<tr>
+<td colspan="3" style="background-color:#A3CCCC"><h4>My Invites</strong></p></td>
+</tr>
     <tr>
       <th><%= model_class.human_attribute_name(:invitee) %></th>
       <th><%= model_class.human_attribute_name(:trip) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
     </tr>
-  </thead>
-  <tbody>
     <% @friendsInvitedToTrip.each do |trip| %>
       <tr>
         <td><%= trip.receiver.name %></td>
@@ -42,18 +37,12 @@
         <td><%= trip.status %></td>
       </tr>
     <% end %>
-  </tbody>
-
-  <table class="table table-striped">
-<p><strong>Requests to Join My trip</strong></p>
-  <thead>
+<td colspan="3" style="background-color:#A3CCCC"><h4>Requests to Join My trip</strong></p></td>
     <tr>
       <th><%= model_class.human_attribute_name(:requested_by) %></th>
       <th><%= model_class.human_attribute_name(:trip) %></th> 
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
-  </thead>
-  <tbody>
     <% @requestsToJoinMyTrip.each do |trip| %>
       <tr>
         <td><%= trip.sender.name %></td>
@@ -73,22 +62,14 @@
         </td>
       </tr>
     <% end %>
-  </tbody>
-  </table>
 
+<td colspan="3" style="background-color:#A3CCCC"><h4>Invites to Join a Friend's trip</strong></p></td>
 
-
-
-<table class="table table-striped">
-<p><strong>Invites to Join a Friend's trip</strong></p>
-  <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:requested_by) %></th>
       <th><%= model_class.human_attribute_name(:trip) %></th> 
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
-  </thead>
-  <tbody>
     <% @requestsToJoinFriendsTrip.each do |trip| %>
       <tr>
         <td><%= trip.sender.name %></td>

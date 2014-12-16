@@ -1,10 +1,9 @@
 <div class="well well-sm">
 <%= glyph(:globe) %>
 <%trip = Trip.find(n[:target_id])%>
-Trip <strong><%= trip.name%></strong> was created by <strong><%= User.find(n[:owner_id]).name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span>
+Trip <strong><%= trip.name%></strong> was created by <strong><%= User.find(n[:owner_id]).name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
 <div style="margin-top:10px">
 <div class="likes"><%= pluralize(trip.likers(User).count, 'like')%></div>
 </div>
 <%= render 'shared/like_form', likeable: trip %>
-</div>
 </div>

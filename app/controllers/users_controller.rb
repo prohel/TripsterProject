@@ -173,7 +173,8 @@ class UsersController < ApplicationController
      @recommendList ||= []   
      friends = current_user.friends
      @friendsOfFriends = friends.map {|f| f.friends}.flatten
-      .delete_if {|f| friends.include?(f) || f == current_user}
+      .delete_if {|f| friends.include?(f) or 
+        @friendsOfFriends.include?(f) or f == current_user}
   end
 
   def friendslist
@@ -189,6 +190,13 @@ class UsersController < ApplicationController
         @likeable = Attachment.find(params[:likeable_id])
       end
   current_user.like!(@likeable)
+  end
+
+  def friendRequests
+    @myRequests = Friendship.find_all_by_user1_id(current_user)
+    @myRequests.delete_if {|x| x.isReciprocate}
+    @myInvites = Friendship.find_all_by_user2_id(current_user)
+    @myInvites.delete_if {|x| x.isReciprocate}
   end
 
   def unlike

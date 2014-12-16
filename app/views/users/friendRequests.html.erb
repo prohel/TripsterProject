@@ -1,0 +1,37 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => "Friend Request Notifications" %></h1>
+</div>
+
+<table class="table table-striped">
+<tr>
+  <td colspan="2" style="background-color:#A3CCCC"><h4>Pending requests I sent</strong></p></td>
+  </tr>
+    <tr>
+      <th><%= model_class.human_attribute_name(:requested_to) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+    </tr>
+  <tbody>
+    <% @myRequests.each do |request| %>
+      <tr>
+        <td><%= request.user2.name %></td>
+        <td>"Pending or declined"</td>
+      </tr>
+    <% end %>
+<tr>
+<td colspan="2" style="background-color:#A3CCCC"><h4>Friend requests I received</strong></p></td>
+</tr>
+    <tr>
+      <th><%= model_class.human_attribute_name(:invitee) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+    </tr>
+    <% @myInvites.each do |request| %>
+      <tr>
+        <td><%= request.user1.name %></td>
+        <td><%= link_to t('.confirm_request', :default => t("helpers.links.confirm_request")),
+              friend_path(request.user1), :class => 'btn btn-default'%></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+

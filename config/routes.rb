@@ -32,6 +32,7 @@ TripsterProject::Application.routes.draw do
       get 'friendslist'
       get 'bingsearch'
       get 'trendingdreamlocation'
+      get 'friendRequests'
     end
   end
 

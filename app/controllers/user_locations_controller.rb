@@ -4,8 +4,10 @@ class UserLocationsController < ApplicationController
   respond_to :html
 
   def index
-    @user_locations = UserLocation.all
-    respond_with(@user_locations)
+    @user = User.find(params[:user_id])
+    @placesVisited = @user.user_locations.find_all_by_visited(1)
+    @dreamlist = @user.user_locations.find_all_by_visited(0)
+    respond_with(@placesVisited, @dreamlist)
   end
 
   def show
@@ -13,17 +15,33 @@ class UserLocationsController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
+    @visited = params[:visited]
     @user_location = UserLocation.new
-    respond_with(@user_location)
+    respond_with(@user, @user_location)
   end
 
   def edit
   end
 
   def create
-    @user_location = UserLocation.new(params[:user_location])
+    @user = User.find(params[:user_id])
+    locationName = params[:user_location][:location]
+    @location = Location.find_by_name(locationName)
+    if @location.blank?
+      @location = Location.new({
+        name: locationName
+        })
+    end
+    @user_location = UserLocation.new({
+      user_id: @user.id,
+      location_id: @location.id,
+      visited: params[:visited]
+      })
     @user_location.save
-    respond_with(@user_location)
+    @placesVisited = @user.user_locations.find_all_by_visited(1)
+    @dreamlist = @user.user_locations.find_all_by_visited(0)
+    render action: "index"
   end
 
   def update
@@ -32,6 +50,7 @@ class UserLocationsController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params[:user_id])
     @user_location.destroy
     respond_with(@user_location)
   end

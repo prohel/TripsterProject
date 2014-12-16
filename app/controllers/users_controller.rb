@@ -19,6 +19,8 @@ class UsersController < ApplicationController
     tripsCreations = []
     tripsInvites = []
     friends = current_user.friends
+    userPlusFriends = Array.new(friends)
+    userPlusFriends << current_user
     friends.each do |f|
       friendsNotifications += f.friendships
     end
@@ -30,27 +32,41 @@ class UsersController < ApplicationController
         target_id: notif.user2.id
       }
     end
-    friends.each do |friend|
-      friend.trips do |notif|
+    userPlusFriends.each do |friend|
+      friend.trips.each do |notif|
         @news << {
           created_at: notif.created_at,
           type: "trip",
+          owner_id: notif.creator.id,
+          target_id: notif.id
+        }
+      end
+    end
+    userPlusFriends.each do |person|
+      tripsInvites += person.accepted_requests_and_invites
+    end
+      tripsInvites.uniq.each do |notif|
+        trip = Trip.find(notif.trip_id)
+        owner = trip.creator
+        @news << {
+          created_at: notif.updated_at,
+          type: "invite",
+          owner_id: notif.sender == owner ? notif.receiver.id : notif.sender.id,
+          target_id: notif.trip_id
+        }
+      end
+    userPlusFriends.each do |friend|
+      friend.attachments.each do |notif|
+        @news << {
+          created_at: notif.created_at,
+          type: "attachment",
           owner_id: notif.user.id,
           target_id: notif.id
         }
       end
     end
-    tripsNotifications = current_user.accepted_requests_and_invites
-    tripsNotifications.each do |notif|
-      trip = Trip.find(notif.trip_id)
-      owner = trip.created_by
-      @news << {
-        created_at: notif.updated_at,
-        type: "invite",
-        owner_id: notif.sender == owner ? notif.receiver.id : notif.sender.id,
-        target_id: notif.trip_id
-      }
-    end
+    @friendsOfFriends = friends.map {|f| f.friends}.flatten
+      .delete_if {|f| friends.include?(f) || f == current_user}
     @news = @news.sort_by{|n| n[:created_at]}.reverse
   end
 
@@ -112,6 +128,39 @@ class UsersController < ApplicationController
       format.html { redirect_to Users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def trendingdreamlocation
+    @dl = UserLocation.select('location_id').where("visited = ?", 0).group('location_id').order('count_location_id desc').count('location_id').take(5)
+    # @dl = UserLocation.where("visited = ?", 0)
+    # @ids = @dl.map {|i| i.location_id }
+    @locs ||= []
+    @dl.each do |key, val|
+      @locs << Location.find(key)
+      @count = val
+    end
+    # @locs = Location.where("id in (?)", @ids)
+      # tl = UserLocation.where("visited = ? AND location_id in (?) ", 0, @ids)
+    # dream_locations = UserLocation.where("visited = ?", 0)
+    # @trendy_locations = UserLocation.where("visited = ? AND location_id =", 0 and dream_locations.id) 
+  end
+
+  def bingsearch
+    #Tripster searche for user and trips
+    @userSearches = User.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
+    @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
+    #Bing Web Searches
+    bing_web = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Web')
+    @bing_results_web = bing_web.search(params[:search])
+
+    #Bing Image Searches
+    bing_image = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Image')
+    @bing_results_images = bing_image.search(params[:search])
+
+    
+    #Bing Videos
+    bing_video = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Video')
+    @bing_results_videos = bing_video.search(params[:search])
   end
 
   def search

@@ -1,3 +1,38 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#sidebar-wrapper {
+  width: 200px;
+  height: 100%;
+  display:inline-block;
+  overflow-y: auto;
+  z-index: 1000;
+  vertical-align:top;
+  margin-top:70px;
+  margin-right:50px;
+  transition: all 0.4s ease 0s;
+}
+
+#sidebar-box {
+  padding-left:15px;
+  margin-bottom:20px;
+  background-color: #F5F5F5;
+  border: 1px solid #E3E3E3;
+}
+
+#sidebar-box ul {
+	list-style-type: square;
+}
+
+.sidebar-nav {
+  top: 0;
+  width: 200px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper a.btn-primary {
+  color:#fff;
+}

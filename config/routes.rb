@@ -14,10 +14,6 @@ TripsterProject::Application.routes.draw do
 
   resources :trip_invites
 
-
-  resources :user_locations
-
-
   resources :locations
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
@@ -28,15 +24,16 @@ TripsterProject::Application.routes.draw do
 
 
   resources :users do
+    resources :user_locations
     collection do
       get 'search'
       get 'recommend'
       get 'newsfeed'
       get 'friendslist'
+      get 'bingsearch'
+      get 'trendingdreamlocation'
     end
   end
-
-  resources :users
 
   match 'like' => 'users#like', :via => [:post]
   match 'unlike' => 'users#unlike', :via => [:post]

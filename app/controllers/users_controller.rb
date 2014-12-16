@@ -65,9 +65,7 @@ class UsersController < ApplicationController
         }
       end
     end
-    @friendsOfFriends = friends.map {|f| f.friends}.flatten
-      .delete_if {|f| friends.include?(f) || f == current_user}
-    @news = @news.sort_by{|n| n[:created_at]}.reverse
+    @friendsOfFriends = recommend
   end
 
   def addFriend
@@ -169,18 +167,19 @@ class UsersController < ApplicationController
     @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
   end
 
-  def recommend
-     @recommendList ||= []   
+  def recommend  
      friends = current_user.friends
      @friendsOfFriends = Hash.new
      friends.each do |f|
-        if !friends.include?(f) or f == current_user
-          a = @friendsOfFriends[:f.id]
-          @friendsOfFriends[:f.id] = a.blank? ? 1 : a+1;
+        f.friends.each do |f2|
+          if !@friendsOfFriends.include?(f2) and !(f2 == current_user)
+            a = @friendsOfFriends[f2.id]
+            @friendsOfFriends[f2.id] = a.blank? ? 1 : a+1;
+          end
         end
       end
       @friendsOfFriends.sort_by {|k, v| [v, k] }
-      @friendsOfFriends.values.take(5)
+      @friendsOfFriends.keys.take(5)
   end
 
   def friendslist

@@ -2,6 +2,6 @@
 <ul id="recommendations">
 <% @friendsOfFriends.each do |friendOfFriend| %>
 <li>
-		<%= link_to friendOfFriend.name, user_path(friendOfFriend) %></li>
+		<%= link_to User.find(friendOfFriend).name, user_path(friendOfFriend) %></li>
 		<% end %>
 		<ul>

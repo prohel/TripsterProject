@@ -48,6 +48,10 @@
               :class => 'btn btn-danger' %>
 </div>
 
+<div class="likes"><%= pluralize(@attachment.likers(User).count, 'like')%></div>
+</div>
+<%= render 'shared/like_form', likeable: @attachment %>
+
 <% if @attachment.attachment_type == "photo" %>
   <a href="<%= @attachment.url %>"><img src="<%= @attachment.url %>" alt="<%= @attachment.name %>"></a>
 <% end %>

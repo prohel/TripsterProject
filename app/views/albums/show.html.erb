@@ -26,6 +26,10 @@
               :class => 'btn btn-danger' %>
 </div>
 
+<div class="likes"><%= pluralize(@album.likers(User).count, 'like')%></div>
+</div>
+<%= render 'shared/like_form', likeable: @album %>
+
 <br><br>
 
 <% @attachments.each do |attachment| %>

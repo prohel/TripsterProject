@@ -1,4 +1,14 @@
 <div class="well well-sm">
 <%= glyph(:globe) %>
-Trip <strong><%= Trip.find(n[:target_id]).name%></strong> was created by <strong><%= User.find(n[:owner_id]).name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+<%trip = Trip.find(n[:target_id])%>
+Trip <strong><%= trip.name%></strong> was created by <strong><%= User.find(n[:owner_id]).name%></strong><strong><span style="float:right">
+<%if current_user.likes?(trip)%>
+	<%=link_to like_path(likeable_type: "Trip", likeable_id: n[:target_id]), method: :post, remote: :true do%>
+	<%= glyph(:thumbs_up) %><span id="like">Like<span>
+	<%end%>
+<%else%>
+	<%=link_to unlike_path(likeable_type: "Trip", likeable_id: n[:target_id]), method: :post, remote: :true do%>
+	<%= glyph(:thumbs_up) %><span id="unlike">Unlike</span>
+	<%end%><%= local_time(n[:created_at])%></span></strong>
+	<%end%>
 </div>

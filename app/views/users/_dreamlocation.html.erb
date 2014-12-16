@@ -1,0 +1,7 @@
+<h5>What about a trip to</h5>
+<ul id="dreamlocations">
+<% trendingdreamlocation.each do |loc| %>
+<li>
+		<%= link_to loc.name, location_path(loc) %></li>
+		<% end %>
+		<ul>

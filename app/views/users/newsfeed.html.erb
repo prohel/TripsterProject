@@ -7,6 +7,9 @@
         <div id="sidebar-box">
         <%= render 'userlinks'%>
         </div>
+        <div id="sidebar-box">
+        <%= render 'dreamlocation', friendsOfFriends: @friendsOfFriends%>
+        </div>
     </div>
 <div style="width:520px;display:inline-block;">
 <h3> Welcome back, <%=current_user.name%></h3>

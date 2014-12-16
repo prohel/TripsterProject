@@ -1,4 +1,4 @@
-console.log("LIKE")
-$('.<%= @likeable.class %>-<%= @likeable.id %> > #like_form').html("<%= escape_javascript(render 'shared/unlike', likeable: @likeable) %>")
-$('.<%= @likeable.class %>-<%= @likeable.id %> > .likes').html("<%= pluralize(@likeable.likers(User).count, 'like')%>")
-$(location.reload());
+$('#like').html("Unlike");
+var link = $('#like').closest('a');
+link.attr('href', "/un" + link.attr("href").slice(1));
+$('#like').attr("id","unlike");

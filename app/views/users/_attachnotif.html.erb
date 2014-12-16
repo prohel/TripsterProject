@@ -3,8 +3,7 @@
 <%attachment = Attachment.find(n[:target_id])%>
 <strong><%= User.find(n[:owner_id]).name%></strong> added an attachment to the trip <strong><%= Trip.find(attachment.trip_id).name%></strong><strong></strong>
 <span style="margin-left:20px;">
-<div style="margin-top:10px;">
-<% cache do %>
+<div style="margin-top:10px;margin-bottom:10px">
 <% if attachment.attachment_type == "photo" %>
             <a href="<%= attachment.url %>"><img src="<%= attachment.url %>" alt="<%= attachment.name %>" class="thumbnail"></a>
           <% elsif attachment.attachment_type == "link" %>
@@ -12,7 +11,16 @@
           <% elsif attachment.attachment_type == "video" %>
             <a href="<%= attachment.url %>">View Video</a>
           <% end %></div>
-          <span style="float:right"><strong><%= local_time(n[:created_at])%></strong></span>
+<%if current_user.likes?(attachment)%>
+	<%=link_to like_path(likeable_type: "Attachment", likeable_id: n[:target_id]), method: :post, remote: :true do%>
+	<%= glyph(:thumbs_up) %><span id="like">Like<span>
+	<%end%>
+<%else%>
+	<%=link_to unlike_path(likeable_type: "Attachment", likeable_id: n[:target_id]), method: :post, remote: :true do%>
+	<%= glyph(:thumbs_up) %><span id="unlike">Unlike</span>
+	<%end%>
+<%end%>  
+
+        <span style="float:right"><strong><%= local_time(n[:created_at])%></strong></span>
 </span>
-<%end%>
  </div>

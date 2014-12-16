@@ -4,4 +4,10 @@ class Attachment < ActiveRecord::Base
   belongs_to :user, foreign_key: "created_by"
   attr_accessible :attachment_type, :created_by, :description, :name, :url, :trip_id, :album_id
   ATTACHMENT_TYPES = ["photo", "link", "note", "video"]
+
+  def like(user)
+  	user.like!(self)
+  end
+
+  acts_as_likeable
 end

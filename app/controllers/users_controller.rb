@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	 before_filter :set_User, only: [:addFriend, :show, :edit, :update, :destroy]
-   helper_method :recommend
+   helper_method :recommend, :trendingdreamlocation
 
   # GET /Users
   # GET /Users.json
@@ -139,6 +139,7 @@ class UsersController < ApplicationController
       @locs << Location.find(key)
       @count = val
     end
+    @locs
     # @locs = Location.where("id in (?)", @ids)
       # tl = UserLocation.where("visited = ? AND location_id in (?) ", 0, @ids)
     # dream_locations = UserLocation.where("visited = ?", 0)
@@ -183,14 +184,26 @@ class UsersController < ApplicationController
       if params[:likeable_type] == "Trip"
           @likeable = Trip.find(params[:likeable_id])
       end
+      if params[:likeable_type] == "Attachment"
+          @likeable = Attachment.find(params[:likeable_id])
+      end
   current_user.like!(@likeable)
+  respond_to do |format|
+    format.js
+  end
   end
 
   def unlike
       if params[:likeable_type] == "Trip"
           @likeable = Trip.find(params[:likeable_id])
       end
+      if params[:likeable_type] == "Attachment"
+          @likeable = Attachment.find(params[:likeable_id])
+      end
   current_user.unlike!(@likeable)
+  respond_to do |format|
+    format.js
+  end
   end
 
   private

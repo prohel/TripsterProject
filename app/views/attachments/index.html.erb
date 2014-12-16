@@ -16,7 +16,7 @@
   <tbody>
     <% @attachments.each do |attachment| %>
       <tr>
-        <td><u><%= link_to attachment.name, attachment_path(attachment) %></u></td>
+        <td><u><%= link_to attachment.name, trip_attachment_path(@trip, attachment) %></u></td>
         <td><%= attachment.attachment_type %></td>
         <td>
           <% unless attachment.album_id.blank? then %>

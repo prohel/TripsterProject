@@ -26,6 +26,10 @@
               :class => 'btn btn-danger' %>
 </div>
 
+<div class="likes"><%= pluralize(@album.likers(User).count, 'like')%></div>
+</div>
+<%= render 'shared/like_form', likeable: @album %>
+
 <br><br>
 
 <% @attachments.each do |attachment| %>
@@ -47,7 +51,11 @@
     </tr>
 <% end %>
 
+<h3>Comments</h3>
+
 <%= render :partial => 'album_comments/form' %>
+
+<%= render :template => 'album_comments/index', :collection => @album.album_comments, :locals => {album_id: @album} %>
 
 
  

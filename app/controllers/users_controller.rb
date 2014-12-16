@@ -182,7 +182,11 @@ class UsersController < ApplicationController
 
   def like
       if params[:likeable_type] == "Trip"
-          @likeable = Trip.find(params[:likeable_id])
+        @likeable = Trip.find(params[:likeable_id])
+      elsif params[:likeable_type] == "Album"
+        @likeable = Album.find(params[:likeable_id])
+      elsif params[:likeable_type] == "Attachment"
+        @likeable = Attachment.find(params[:likeable_id])
       end
       if params[:likeable_type] == "Attachment"
           @likeable = Attachment.find(params[:likeable_id])
@@ -196,6 +200,10 @@ class UsersController < ApplicationController
   def unlike
       if params[:likeable_type] == "Trip"
           @likeable = Trip.find(params[:likeable_id])
+      elsif params[:likeable_type] == "Album"
+        @likeable = Album.find(params[:likeable_id])
+      elsif params[:likeable_type] == "Attachment"
+        @likeable = Attachment.find(params[:likeable_id])
       end
       if params[:likeable_type] == "Attachment"
           @likeable = Attachment.find(params[:likeable_id])

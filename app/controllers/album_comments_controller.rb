@@ -20,15 +20,14 @@ class AlbumCommentsController < ApplicationController
     @trip = Trip.find(params[:trip_id])
     @album = Album.find(params[:album_id])
     @album_comment = @trip.album.album_comments.new
-    #@album_comment = AlbumComment.new
-    @album_comment.user_id = current_user.id
+    @album_comment.user = current_user
     respond_with(@trip, @album, @album_comment)
   end
 
   def edit
     @trip = Trip.find(params[:trip_id])
     @album = Album.find(params[:album_id])
-    respond_with(@trip @album, @album_comment)
+    respond_with(@trip, @album, @album_comment)
   end
 
   def create
@@ -36,19 +35,20 @@ class AlbumCommentsController < ApplicationController
     @album_comment.save
     @trip = Trip.find(params[:trip_id])
     @album = Album.find(params[:album_id])
-    respond_with(@trip, @album, @album_comment)
+    respond_with(@trip, @album)
   end
 
   def update
     @album_comment.update_attributes(params[:album_comment])
     @album = Album.find(params[:album_id])
-    respond_with(@album, @album_comment)
+    respond_with(@trip, @album)
   end
 
-  def destroy])
+  def destroy
+    @trip = Trip.find(params[:trip_id])
     @album = Album.find(params[:album_id])
     @album_comment.destroy
-    respond_with(@album)
+    respond_with(@trip, @album)
   end
 
   private

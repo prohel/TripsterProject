@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   attr_accessible :email, :password, :name, :password_confirmation, :remember_me
   # attr_accessible :title, :body
+  has_many :album_comments
+  has_many :attachment_comments
   has_many :user_locations
   has_many :trips, :foreign_key => "created_by"
   has_many :albums, :foreign_key => "created_by"

@@ -10,6 +10,10 @@ class AttachmentsController < ApplicationController
   end
 
   def show
+    @trip = Trip.find(params[:trip_id])
+    @attachment_comments = AttachmentComment.where("attachment_id = ?", @attachment.id)
+    @attachment_comment = @attachment.attachment_comments.new
+    @attachment_comment.user_id = current_user.id
     respond_with(@trip, @attachment)
   end
 

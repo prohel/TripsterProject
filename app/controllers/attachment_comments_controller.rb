@@ -4,36 +4,51 @@ class AttachmentCommentsController < ApplicationController
   respond_to :html
 
   def index
+    @trip = Trip.find(params[:trip_id])
+    @attachment = Attachment.find(params[:attachment_id])
     @attachment_comments = AttachmentComment.all
-    respond_with(@attachment_comments)
+    respond_with(@trip, @attachment, @attachment_comments)
   end
 
   def show
-    respond_with(@attachment_comment)
+    @trip = Trip.find(params[:trip_id])
+    @attachment = Attachment.find(params[:attachment_id])
+    respond_with(@trip, @attachment, @attachment_comments)
   end
 
   def new
-    @attachment_comment = AttachmentComment.new
-    respond_with(@attachment_comment)
+    @trip = Trip.find(params[:trip_id])
+    @attachment = Attachment.find(params[:attachment_id])
+    @attachment_comment = @trip.attachment.attachment_comments.new
+    @attachment_comment.user = current_user
+    respond_with(@trip, @attachment, @attachment_comment)
   end
 
   def edit
+    @trip = Trip.find(params[:trip_id])
+    @attachment = Attachment.find(params[:attachment_id])
+    respond_with(@trip, @attachment, @attachment_comment)
   end
 
   def create
     @attachment_comment = AttachmentComment.new(params[:attachment_comment])
     @attachment_comment.save
-    respond_with(@attachment_comment)
+    @trip = Trip.find(params[:trip_id])
+    @attachment = Attachment.find(params[:attachment_id])
+    respond_with(@trip, @attachment)
   end
 
   def update
     @attachment_comment.update_attributes(params[:attachment_comment])
-    respond_with(@attachment_comment)
+    @attachment = Attachment.find(params[:attachment_id])
+    respond_with(@trip, @attachment)
   end
 
   def destroy
+    @trip = Trip.find(params[:trip_id])    
+    @attachment = Attachment.find(params[:attachment_id])
     @attachment_comment.destroy
-    respond_with(@attachment_comment)
+    respond_with(@trip, @attachment)
   end
 
   private

@@ -14,6 +14,7 @@ class AlbumsController < ApplicationController
     @attachments = Attachment.where("album_id = ?", @album.id)
     @album_comments = AlbumComment.where("album_id = ?", @album.id)
     @album_comment = @album.album_comments.new
+    @album_comment.user_id = current_user.id
     respond_with(@trip, @album)
   end
 

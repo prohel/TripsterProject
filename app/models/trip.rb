@@ -36,6 +36,10 @@ class Trip < ActiveRecord::Base
       invited_members.include?(user)
   end
 
+  def isOneOfThemMember(users)
+    users.any? {|u| isMember(u)}
+  end
+
 
   def invited_members
     accepted_invites.map(&:receiver)

@@ -37,8 +37,10 @@
 <th class="bordered_cells">
 <h4 style="color:blue"> Here are your top 10 video results  </h4>
 <% (0..9).each do |i| %>
+<%if @bing_results_videos[0][:Video][i]%>
 <a href="<%= @bing_results_videos[0][:Video][i][:MediaUrl] %>" target="_blank">
 	<%= @bing_results_videos[0][:Video][i][:Title] %></a><br/>
+<%end%>
 <% end %>
 </th>
 </table>

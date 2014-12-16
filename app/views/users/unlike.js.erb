@@ -1,4 +1,3 @@
-$('#unlike').html("Like")
-var link = $('#unlike').closest('a');
-link.attr('href', "/" + link.attr("href").slice(3));
-$('#unlike').attr("id","like");
+$('.<%= @likeable.class %>-<%= @likeable.id %> > #like_form').html("<%= escape_javascript(render 'shared/like', likeable: @likeable) %>")
+$('.<%= @likeable.class %>-<%= @likeable.id %> > .likes').html("<%= pluralize(@likeable.likers(User).count, 'like')%>")
+$(location.reload());

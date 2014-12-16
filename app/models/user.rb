@@ -91,7 +91,14 @@ class User < ActiveRecord::Base
   end
 
   def photo
-    !image.blank? ? image : "/assets/silhouette.png"
+    r = Rails.cache.read(id)
+    p "||||||"
+    p r
+    if !image.blank?
+      #File.open(image, "rb") {|f| Rails.cache.write(id, Base64.encode64(f.read))}
+      Rails.cache.write(id, open("assets/silhouette.png").read)
+    end
+    return !image.blank? ? image : "#{Rails.root}/assets/silhouette.png"
   end
 
  acts_as_liker

@@ -1,0 +1,39 @@
+
+Good Luck Pierre
+
+//Set Up
+//Sources:
+//https://source.android.com/source/initializing.html
+
+1) sudo apt-get update
+2) sudo apt-get install build-essential
+3) sudo apt-get install openjdk-7-jdk
+4) sudo apt-get install git
+5) sudo apt-get install bison g++-multilib git gperf libxml2-utils
+
+//Getting/Building the kernel
+//Sources:
+//https://source.android.com/source/building-kernels.html
+//http://stackoverflow.com/questions/21274910/how-to-compile-android-goldfish-3-4-kernel-and-run-on-emulator
+
+1) move to whatever directory you want the kernel source code in
+2) git clone https://android.googlesource.com/kernel/goldfish.git
+3) git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6
+4) export PATH=$(pwd)/arm-eabi-4.6/bin:$PATH
+5) export ARCH=arm
+6) export SUBARCH=arm
+7) export CROSS_COMPILE=arm-eabi-
+8) cd goldfish
+9) git checkout -b origin/android-goldfish-3.4
+10) make goldfish_armv7_defconfig
+11) make
+12) take a screen shot when this is done, should say zImage is ready and your username
+
+//Switch to Host machine
+1) scp the zImage file to host
+2) make an virtua device:
+	Device: Nexus 7
+	Target: Android 4.4.2 - API Level 19
+	CPU: ARM (armeabi-v7a)
+3) emulator -kernel zImage -avd <device>
+

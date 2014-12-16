@@ -4,6 +4,7 @@
 <strong><%= User.find(n[:owner_id]).name%></strong> added an attachment to the trip <strong><%= Trip.find(attachment.trip_id).name%></strong><strong></strong>
 <span style="margin-left:20px;">
 <div style="margin-top:10px;">
+<% cache do %>
 <% if attachment.attachment_type == "photo" %>
             <a href="<%= attachment.url %>"><img src="<%= attachment.url %>" alt="<%= attachment.name %>" class="thumbnail"></a>
           <% elsif attachment.attachment_type == "link" %>
@@ -13,4 +14,5 @@
           <% end %></div>
           <span style="float:right"><strong><%= local_time(n[:created_at])%></strong></span>
 </span>
+<%end%>
  </div>

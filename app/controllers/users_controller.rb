@@ -188,13 +188,7 @@ class UsersController < ApplicationController
       elsif params[:likeable_type] == "Attachment"
         @likeable = Attachment.find(params[:likeable_id])
       end
-      if params[:likeable_type] == "Attachment"
-          @likeable = Attachment.find(params[:likeable_id])
-      end
   current_user.like!(@likeable)
-  respond_to do |format|
-    format.js
-  end
   end
 
   def unlike
@@ -205,13 +199,7 @@ class UsersController < ApplicationController
       elsif params[:likeable_type] == "Attachment"
         @likeable = Attachment.find(params[:likeable_id])
       end
-      if params[:likeable_type] == "Attachment"
-          @likeable = Attachment.find(params[:likeable_id])
-      end
   current_user.unlike!(@likeable)
-  respond_to do |format|
-    format.js
-  end
   end
 
   private

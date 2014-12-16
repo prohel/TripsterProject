@@ -11,15 +11,8 @@
           <% elsif attachment.attachment_type == "video" %>
             <a href="<%= attachment.url %>">View Video</a>
           <% end %></div>
-<%if current_user.likes?(attachment)%>
-	<%=link_to like_path(likeable_type: "Attachment", likeable_id: n[:target_id]), method: :post, remote: :true do%>
-	<%= glyph(:thumbs_up) %><span id="like">Like<span>
-	<%end%>
-<%else%>
-	<%=link_to unlike_path(likeable_type: "Attachment", likeable_id: n[:target_id]), method: :post, remote: :true do%>
-	<%= glyph(:thumbs_up) %><span id="unlike">Unlike</span>
-	<%end%>
-<%end%>  
+<div class="likes" style = "inline-block"><%= pluralize(attachment.likers(User).count, 'like')%></div>
+<%= render 'shared/like_form', likeable: attachment %>
 
         <span style="float:right"><strong><%= local_time(n[:created_at])%></strong></span>
 </span>

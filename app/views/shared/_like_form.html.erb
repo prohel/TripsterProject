@@ -1,9 +1,12 @@
 <% if user_signed_in? %>
 
-		<div id="like_form">
+		<div id="like_form" style="display:inline-block;">
+
 			<% if current_user.likes?(likeable) %>
+				<%= glyph(:thumbs_down) %>
 				<%= render 'shared/unlike', likeable: likeable %>
 			<% else %>
+				<%= glyph(:thumbs_up) %>
 				<%= render 'shared/like', likeable: likeable  %>
 			<% end %>
 	</div>

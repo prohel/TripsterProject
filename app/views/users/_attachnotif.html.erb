@@ -5,7 +5,12 @@
 <span style="margin-left:20px;">
 <div style="margin-top:10px;margin-bottom:10px">
 <% if attachment.attachment_type == "photo" %>
-            <a href="<%= attachment.url %>"><img src="<%= attachment.url %>" alt="<%= attachment.name %>" class="thumbnail"></a>
+			<% if Rails.cache.read(attachment.url).blank? %>
+				<a href="<%= attachment.url %>"><img src="<%= attachment.url %>" alt="<%= attachment.name %>" class="thumbnail"></a>
+				<% Rails.cache.write(attachment.url, open(attachment.url).read) %>
+			<% else %>
+				<%= ('<img src="data:image/gif;base64,%s" class="thumbnail" />' % Base64.encode64(Rails.cache.read(attachment.url))).html_safe %>
+			<% end %>
           <% elsif attachment.attachment_type == "link" %>
             <a href="<%= attachment.url %>">Follow Link</a>
           <% elsif attachment.attachment_type == "video" %>

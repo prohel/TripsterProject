@@ -10,6 +10,10 @@
   <dd><%= @location.location_type %></dd>
 </dl>
 
+<% bing_image = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 3, 'Image') %>
+<% bing_results_images = bing_image.search(@location.name) %>
+<img src="<%= bing_results_images[0][:Image][0][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][1][:MediaUrl] %>" height="150" width="150" > <img src="<%= bing_results_images[0][:Image][2][:MediaUrl] %>" height="150" width="150" >
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.see_all_locations")),
               locations_path, :class => 'btn'  %>

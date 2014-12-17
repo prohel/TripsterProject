@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   before_filter :set_trip, only: [:show, :edit, :update, :destroy]
-
+  before_filter :check_privacy, only: [:update, :destroy]
   respond_to :html
 
   def index
@@ -116,6 +116,11 @@ class TripsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
       params.require(:trip).permit(:name, :id, :start_date, :end_date)
+    end
+
+    def check_privacy
+      @trip = Trip.find(params[:id])
+      @trip.created_by == current_user
     end
 
     # Set created_by

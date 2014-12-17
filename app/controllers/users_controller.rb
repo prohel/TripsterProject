@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	 before_filter :set_User, only: [:addFriend, :show, :edit, :update, :destroy]
    helper_method :recommend, :trendingdreamlocation
+   before_filter :check_privacy, only: [:destroy, :update]
 
   # GET /Users
   # GET /Users.json
@@ -243,5 +244,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def User_params
       params.require(:User).permit(:name, :id, :start_date, :end_date)
+    end
+
+    def check_privacy
+      User.find(params[:id]) == current_user
     end
 end

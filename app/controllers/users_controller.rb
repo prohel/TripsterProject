@@ -172,9 +172,15 @@ class UsersController < ApplicationController
   def recommend
      @recommendList ||= []   
      friends = current_user.friends
-     @friendsOfFriends = friends.map {|f| f.friends}.flatten
-      .delete_if {|f| friends.include?(f) or 
-        @friendsOfFriends.include?(f) or f == current_user}
+     @friendsOfFriends = Hash.new
+     friends.each do |f|
+        if !friends.include?(f) or f == current_user
+          a = @friendsOfFriends[:f.id]
+          @friendsOfFriends[:f.id] = a.blank? ? 1 : a+1;
+        end
+      end
+      @friendsOfFriends.sort_by {|k, v| [v, k] }
+      @friendsOfFriends.values.take(5)
   end
 
   def friendslist

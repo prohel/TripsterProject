@@ -28,6 +28,8 @@
               new_trip_album_path(@trip), :class => 'btn btn-default' %>
   <%= link_to t('.add', :default => t("helpers.links.add_attachment")),
               new_trip_attachment_path(@trip), :class => 'btn btn-default' %>
+  <%else%>
+  <%= link_to t('.requestTrips', :default => t("helpers.links.request")),requestTrip_trip_invites_path(:trip_id => @trip.id, :accepted => 2), :method => :post,  :class => 'btn btn-default btn-xs' %>
   <%end%>
   <%if @trip.created_by == current_user.id%>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

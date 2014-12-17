@@ -23,7 +23,8 @@
     <% end %>
   </tbody>
 </table>
-
+<%if @trip.isMember(current_user)%>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_trip_album_path(@trip),
             :class => 'btn btn-primary' %>
+<%end%>

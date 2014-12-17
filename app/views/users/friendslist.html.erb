@@ -5,7 +5,7 @@
 		<% if !Friendship.find_by_user1_id_and_user2_id(
  			friend.user2_id, current_user.id).blank? %>
 			<% friendName = User.find(friend.user2_id) %>
-			<%= link_to friendName.name, user_path(friend) %><br>
+			<%= link_to friendName.name, user_path(friendName) %><br>
 			<% end %>
 	<% end %>
 <% end %>

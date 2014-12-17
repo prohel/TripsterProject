@@ -1,28 +1,31 @@
 class Trip < ActiveRecord::Base
   #belongs_to  :created_by, :class_name => "User", :foreign_key => "created_by"
   attr_accessible :created_by, :end_date, :name, :start_date
-  validate :date_validation
+  # validate :date_validation
   validates :name, presence: true
+  validates_date :start_date, :before => lambda{|m| m.end_date} 
+  validates_date :end_date, :after => lambda{|m| m.start_date}
+
   belongs_to :user, foreign_key: "created_by"
   acts_as_likeable
   has_many :albums
   has_many :attachments
   has_many :trip_invites
-
+ 
   def members
   	invited_members + accepted_members
   end
 
-  def date_validation
-  	  p end_date
-  	  p start_date
-	  if end_date < start_date
-	    errors[:end_date] << "End date should be after start_date"
-	    return false
-	  else
-	    return true
-	  end
-  end
+  # def date_validation
+  # 	  p end_date
+  # 	  p start_date
+	 #  if end_date < start_date
+	 #    errors[:end_date] << "End date should be after start_date"
+	 #    return false
+	 #  else
+	 #    return true
+	 #  end
+  # end
 
   def creator
     User.find(created_by)

@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/adzap/validates_timeliness.git
+  revision: f983dcc9dcb06b8d050552c277da4e9f1e910e16
+  specs:
+    validates_timeliness (3.0.14)
+      timeliness (~> 0.3.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -180,6 +187,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timeliness (0.3.7)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -219,3 +227,4 @@ DEPENDENCIES
   therubyracer
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
+  validates_timeliness (~> 3.0)!

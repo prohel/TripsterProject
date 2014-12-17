@@ -44,8 +44,10 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(params[:trip])
     @trip.created_by = current_user.id
-    @trip.start_date = Date.parse params[:trip][:start_date]
-    @trip.end_date = Date.parse params[:trip][:end_date]
+    # @trip.start_date = Date.parse params[:trip][:start_date]
+    # @trip.end_date = Date.parse params[:trip][:end_date]
+    @trip.start_date = params[:trip][:start_date]
+    @trip.end_date = params[:trip][:end_date]
     respond_to do |format|
       if @trip.save
         format.html { redirect_to @trip, notice: 'Trip was successfully created.' }

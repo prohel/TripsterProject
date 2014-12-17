@@ -33,7 +33,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+gem 'validates_timeliness', '~> 3.0', :git => 'git://github.com/adzap/validates_timeliness.git'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

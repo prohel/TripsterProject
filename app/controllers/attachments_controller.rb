@@ -1,6 +1,6 @@
 class AttachmentsController < ApplicationController
   before_filter :set_attachment, only: [:show, :edit, :update, :destroy]
-
+  before_filter :check_privacy, only: [:edit, :update, :destroy]
   respond_to :html
 
   def index
@@ -58,5 +58,10 @@ class AttachmentsController < ApplicationController
   private
     def set_attachment
       @attachment = Attachment.find(params[:id])
+    end
+
+    def check_privacy
+      @at = Attachment.find(params[:id])
+      @at.created_by = current_user.id
     end
 end

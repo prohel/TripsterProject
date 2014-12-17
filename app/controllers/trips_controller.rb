@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   before_filter :set_trip, only: [:show, :edit, :update, :destroy]
-  before_filter :check_privacy, only: [:update, :destroy]
+  before_filter :check_privacy, only: [:edit, :update, :destroy]
   respond_to :html
 
   def index

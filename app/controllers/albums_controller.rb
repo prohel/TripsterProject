@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
   before_filter :set_album, only: [:show, :edit, :update, :destroy]
-
+  before_filter :check_privacy, only: [:edit, :update, :destroy]
   respond_to :html
 
   def index
@@ -53,5 +53,10 @@ class AlbumsController < ApplicationController
   private
     def set_album
       @album = Album.find(params[:id])
+    end
+
+    def check_privacy
+      @album = Album.find(params[:id])
+      @album.created_by = current_user.id
     end
 end

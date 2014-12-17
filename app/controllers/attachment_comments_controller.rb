@@ -1,6 +1,6 @@
 class AttachmentCommentsController < ApplicationController
   before_filter :set_attachment_comment, only: [:show, :edit, :update, :destroy]
-
+  before_filter :check_privacy, only: [:edit, :update, :destroy]
   respond_to :html
 
   def index

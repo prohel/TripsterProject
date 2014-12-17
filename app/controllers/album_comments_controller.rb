@@ -1,6 +1,6 @@
 class AlbumCommentsController < ApplicationController
   before_filter :set_album_comment, only: [:show, :edit, :update, :destroy]
-
+  before_filter :check_privacy, only: [:edit, :update, :destroy]
   respond_to :html
 
   def index
@@ -54,5 +54,10 @@ class AlbumCommentsController < ApplicationController
   private
     def set_album_comment
       @album_comment = AlbumComment.find(params[:id])
+    end
+
+    def check_privacy
+      @album_comment = AlbumComment.find(params[:id])
+      @album_comments.user_id = current_user.id
     end
 end

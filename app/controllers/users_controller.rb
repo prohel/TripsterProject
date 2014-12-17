@@ -69,7 +69,7 @@ class UsersController < ApplicationController
       friend.public_albums.each do |notif|
         @news << {
           created_at: notif.created_at,
-          type: "albums",
+          type: "album",
           owner_id: notif.user.id,
           target_id: notif.id
         }

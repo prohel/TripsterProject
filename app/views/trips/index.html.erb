@@ -52,7 +52,7 @@
     <% @friends.each do |friend| %>
       <% friend.trips.each do |trip| %>
         <tr>
-          <td><%= trip.name %></td>
+          <td><%= link_to trip.name, trip_path(trip) %></td>
           <td><%= trip.start_date.to_date %></td>
           <td><%= trip.end_date.to_date %></td>
           <td><%= trip.user.name %></td>

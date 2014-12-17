@@ -11,50 +11,52 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141209062220) do
+ActiveRecord::Schema.define(:version => 20141217033527) do
 
   create_table "album_comments", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "album_id"
+    t.integer  "user_id",     :precision => 38, :scale => 0
+    t.integer  "album_id",    :precision => 38, :scale => 0
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
   end
 
-  add_index "album_comments", ["album_id"], :name => "index_album_comments_on_album_id"
-  add_index "album_comments", ["user_id"], :name => "index_album_comments_on_user_id"
+  add_index "album_comments", ["album_id"], :name => "i_album_comments_album_id"
+  add_index "album_comments", ["user_id"], :name => "i_album_comments_user_id"
 
   create_table "albums", :force => true do |t|
-    t.integer  "trip_id"
+    t.integer  "trip_id",    :precision => 38, :scale => 0
     t.string   "name"
-    t.integer  "created_by"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "created_by", :precision => 38, :scale => 0
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "privacy",    :precision => 38, :scale => 0
   end
 
   add_index "albums", ["trip_id"], :name => "index_albums_on_trip_id"
 
   create_table "attachment_comments", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "attachment_id"
+    t.integer  "user_id",       :precision => 38, :scale => 0
+    t.integer  "attachment_id", :precision => 38, :scale => 0
     t.text     "description"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
   end
 
-  add_index "attachment_comments", ["attachment_id"], :name => "index_attachment_comments_on_attachment_id"
-  add_index "attachment_comments", ["user_id"], :name => "index_attachment_comments_on_user_id"
+  add_index "attachment_comments", ["attachment_id"], :name => "i_att_com_att_id"
+  add_index "attachment_comments", ["user_id"], :name => "i_attachment_comments_user_id"
 
   create_table "attachments", :force => true do |t|
     t.string   "name"
     t.string   "attachment_type"
-    t.integer  "trip_id"
-    t.integer  "album_id"
-    t.integer  "created_by"
+    t.integer  "trip_id",         :precision => 38, :scale => 0
+    t.integer  "album_id",        :precision => 38, :scale => 0
+    t.integer  "created_by",      :precision => 38, :scale => 0
     t.string   "url"
     t.string   "description"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.integer  "privacy",         :precision => 38, :scale => 0
   end
 
   add_index "attachments", ["album_id"], :name => "index_attachments_on_album_id"
@@ -62,9 +64,9 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
 
   create_table "follows", :force => true do |t|
     t.string   "follower_type"
-    t.integer  "follower_id"
+    t.integer  "follower_id",     :precision => 38, :scale => 0
     t.string   "followable_type"
-    t.integer  "followable_id"
+    t.integer  "followable_id",   :precision => 38, :scale => 0
     t.datetime "created_at"
   end
 
@@ -72,10 +74,10 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
   create_table "friendships", :force => true do |t|
-    t.integer  "user1_id"
-    t.integer  "user2_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "user1_id",   :precision => 38, :scale => 0
+    t.integer  "user2_id",   :precision => 38, :scale => 0
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   add_index "friendships", ["user1_id"], :name => "index_friendships_on_user1_id"
@@ -83,9 +85,9 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
 
   create_table "likes", :force => true do |t|
     t.string   "liker_type"
-    t.integer  "liker_id"
+    t.integer  "liker_id",      :precision => 38, :scale => 0
     t.string   "likeable_type"
-    t.integer  "likeable_id"
+    t.integer  "likeable_id",   :precision => 38, :scale => 0
     t.datetime "created_at"
   end
 
@@ -101,9 +103,9 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
 
   create_table "mentions", :force => true do |t|
     t.string   "mentioner_type"
-    t.integer  "mentioner_id"
+    t.integer  "mentioner_id",     :precision => 38, :scale => 0
     t.string   "mentionable_type"
-    t.integer  "mentionable_id"
+    t.integer  "mentionable_id",   :precision => 38, :scale => 0
     t.datetime "created_at"
   end
 
@@ -111,47 +113,47 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
   add_index "mentions", ["mentioner_id", "mentioner_type"], :name => "fk_mentions"
 
   create_table "trip_invites", :force => true do |t|
-    t.integer  "trip_id"
-    t.integer  "sender"
-    t.integer  "receiver"
-    t.integer  "accepted"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "trip_id",    :precision => 38, :scale => 0
+    t.integer  "sender",     :precision => 38, :scale => 0
+    t.integer  "receiver",   :precision => 38, :scale => 0
+    t.integer  "accepted",   :precision => 38, :scale => 0
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   create_table "trips", :force => true do |t|
     t.string   "name"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.integer  "created_by"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "created_by", :precision => 38, :scale => 0
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   create_table "user_locations", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "location_id"
-    t.integer  "visited"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "user_id",     :precision => 38, :scale => 0
+    t.integer  "location_id", :precision => 38, :scale => 0
+    t.integer  "visited",     :precision => 38, :scale => 0
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
   end
 
-  add_index "user_locations", ["location_id"], :name => "index_user_locations_on_location_id"
-  add_index "user_locations", ["user_id"], :name => "index_user_locations_on_user_id"
+  add_index "user_locations", ["location_id"], :name => "i_user_locations_location_id"
+  add_index "user_locations", ["user_id"], :name => "i_user_locations_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                                                 :default => "", :null => false
+    t.string   "encrypted_password",                                    :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0,  :null => false
+    t.integer  "sign_in_count",          :precision => 38, :scale => 0, :default => 0,  :null => false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
@@ -159,6 +161,6 @@ ActiveRecord::Schema.define(:version => 20141209062220) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["reset_password_token"], :name => "i_users_reset_password_token", :unique => true
 
 end

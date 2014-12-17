@@ -1,6 +1,8 @@
 <div class="well well-sm">
 <%= glyph(:user) %>
-<strong><%= User.find(n[:owner_id]).name%></strong> became friend with <strong><%= User.find(n[:target_id]).name%></strong>
+<%user1 = User.find(n[:owner_id])%>
+<%user2 = User.find(n[:target_id])%>
+<strong><%= link_to user1.name, user_path(user1)%></strong> became friend with <strong><%= link_to user2.name, user_path(user2)%></strong>
 <span style="margin-left:20px;">
 <div style="margin-top:10px;"><img src=<%="#{User.find(n[:owner_id]).photo}"%> style="border-right:20px;"/> <img src=<%="#{User.find(n[:target_id]).photo}"%>/></div>
 </span>

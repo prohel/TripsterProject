@@ -1,7 +1,9 @@
 <div class="well well-sm">
 <%= glyph(:picture) %>
 <%attachment = Attachment.find(n[:target_id])%>
-<strong><%= User.find(n[:owner_id]).name%></strong> added an attachment to the trip <strong><%= Trip.find(attachment.trip_id).name%></strong><strong></strong>
+<%trip = Trip.find(attachment.trip_id)%>
+<%user = User.find(n[:owner_id])%>
+<strong><%= link_to user.name, user_path(user)%></strong> added an attachment to the trip <strong><%= link_to trip.name, trip_path(trip)%></strong><strong></strong>
 <span style="margin-left:20px;">
 <div style="margin-top:10px;margin-bottom:10px">
 <% if attachment.attachment_type == "photo" %>

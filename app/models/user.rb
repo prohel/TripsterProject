@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def isFriendWith(user)
-    !Friendship.find_by_user1_id_and_user2_id(id, user.id).blank? &&
+    !Friendship.find_by_user1_id_and_user2_id(id, user.id).blank? and
       !Friendship.find_by_user1_id_and_user2_id(user.id, id).blank?
   end
 

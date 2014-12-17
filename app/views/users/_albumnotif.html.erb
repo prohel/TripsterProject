@@ -3,7 +3,7 @@
 <%album = Album.find(n[:target_id])%>
 <%user = User.find(n[:owner_id])%>
 <%trip = Trip.find(album.trip_id)%>
-Album <strong><%= link_to album.name, album_path(album)%></strong> was created by <strong><%=link_to user.name, user_path(user)%></strong> in trip <strong> <%= link_to trip.name, trip_path(trip) %></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+Album <strong><%= link_to album.name, trip_album_path(trip, album)%></strong> was created by <strong><%=link_to user.name, user_path(user)%></strong> in trip <strong> <%= link_to trip.name, trip_path(trip) %></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
 <div style="margin-top:10px">
 <div class="likes"><%= pluralize(album.likers(User).count, 'like')%></div>
 </div>

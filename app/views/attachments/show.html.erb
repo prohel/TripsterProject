@@ -39,7 +39,7 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               trip_path(@attachment.trip_id), :class => 'btn'  %>
-  <%= if @attachment.created_by == current_user.id%>
+  <% if @attachment.created_by == current_user.id%>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_trip_attachment_path(@attachment.trip_id), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def photo
-    return !image.blank? ? image : "assets/silhouette.png"
+    !image.blank? ? image : "/assets/silhouette.png"
   end
 
  acts_as_liker

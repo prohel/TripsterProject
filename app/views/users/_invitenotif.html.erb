@@ -2,5 +2,5 @@
 <%= glyph(:plus) %>
 <%user = User.find(n[:owner_id])%>
 <%trip = Trip.find(n[:target_id])%>
-<strong><%= link_to user.name, user_path(user)%></strong> joined the trip <strong><%= link_to trip.name, trip_path(trip)%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+<strong><%= user.name%></strong> joined the trip <strong><%= trip.name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
  </div>

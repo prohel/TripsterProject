@@ -2,7 +2,7 @@
 <%= glyph(:globe) %>
 <%trip = Trip.find(n[:target_id])%>
 <%user = User.find(n[:owner_id])%>
-Trip <strong><%= link_to trip.name, trip_path(trip)%></strong> was created by <strong><%= link_to user.name, user_path(user)%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+Trip <strong><%= trip.name%></strong> was created by <strong><%= user.name%></strong><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
 <div style="margin-top:10px">
 <div class="likes"><%= pluralize(trip.likers(User).count, 'like')%></div>
 </div>

@@ -179,12 +179,18 @@ class UsersController < ApplicationController
     @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
   end
 
-  def recommend  
+  def recommend
+       
      friends = current_user.friends
      @friendsOfFriends = Hash.new
      friends.each do |f|
         f.friends.each do |f2|
-          if !@friendsOfFriends.include?(f2) and !(f2 == current_user)
+          friendFlag = true
+          friends.each do |f1| if (f2 == f1)
+            friendFlag = false
+          end
+        end
+          if !@friendsOfFriends.include?(f2) and !(f2 == current_user) and friendFlag
             a = @friendsOfFriends[f2.id]
             @friendsOfFriends[f2.id] = a.blank? ? 1 : a+1;
           end

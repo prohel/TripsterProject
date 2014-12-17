@@ -1,0 +1,9 @@
+<div class="well well-sm">
+<%= glyph(:plus) %>
+<%album = Album.find(n[:target_id])%>
+Trip <strong><%= album.name%></strong> was created by <strong><%= User.find(n[:owner_id]).name%></strong> in trip <strong> Trip</strong><%= Trip.find(album.trip_id)%><strong><span style="float:right"><%= local_time(n[:created_at])%></span></strong>
+<div style="margin-top:10px">
+<div class="likes"><%= pluralize(album.likers(User).count, 'like')%></div>
+</div>
+<%= render 'shared/like_form', likeable: trip %>
+</div>

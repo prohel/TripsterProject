@@ -56,7 +56,7 @@ class UsersController < ApplicationController
         }
       end
     userPlusFriends.each do |friend|
-      friend.attachments.each do |notif|
+      friend.public_attachments.each do |notif|
         @news << {
           created_at: notif.created_at,
           type: "attachment",
@@ -65,6 +65,17 @@ class UsersController < ApplicationController
         }
       end
     end
+    userPlusFriends.each do |friend|
+      friend.public_albums.each do |notif|
+        @news << {
+          created_at: notif.created_at,
+          type: "albums",
+          owner_id: notif.user.id,
+          target_id: notif.id
+        }
+      end
+    end
+    @news = @news.sort_by{|n| n[:created_at]}.reverse
     @friendsOfFriends = recommend
   end
 
@@ -148,7 +159,7 @@ class UsersController < ApplicationController
     #Tripster searche for user and trips
     @userSearches = User.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
     @tripSearches = Trip.where("name like ?", "%#{params[:search]}%").order("created_at DESC")
-    @tripSearches.delete_if {|t| !t.isOneOfThemMember(current_user.friends)}
+    @tripSearches.select {|t| t.isOneOfThemMember(current_user.friends) or t.isMember(current_user)}
     #Bing Web Searches
     bing_web = Bing.new("ZQUcJ2qGUYKP7LhoWVqAnI9pLcJAy0oseXLO/8bYePo", 10, 'Web')
     @bing_results_web = bing_web.search(params[:search])

@@ -96,6 +96,14 @@ class User < ActiveRecord::Base
     !image.blank? ? image : "/assets/silhouette.png"
   end
 
+  def public_attachments
+    Attachment.find_all_by_created_by_and_privacy(id, 0)
+  end
+
+  def public_albums
+    Album.find_all_by_created_by_and_privacy(id, 0)
+  end
+
  acts_as_liker
 
 end

@@ -32,6 +32,7 @@ class Trip < ActiveRecord::Base
   end
 
   def isMember(user)
+    created_by == user.id or
     accepted_members.include?(user) or
       invited_members.include?(user)
   end

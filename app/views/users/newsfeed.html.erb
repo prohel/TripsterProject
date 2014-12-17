@@ -26,6 +26,9 @@
 <% if n[:type] == "attachment"%> 
 	<%=render 'attachnotif', n: n%>
 <%end%>
+<% if n[:type] == "album"%> 
+    <%=render 'albumnotif', n: n%>
+<%end%>
 <%end%>
 </div>
 </div>

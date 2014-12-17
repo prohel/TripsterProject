@@ -16,7 +16,7 @@
   <tbody>
     <% @attachments.each do |attachment| %>
       <tr>
-      <%unless (attachment.privacy == 1 and attachment.created_by != current_user) or (!Trip.find(attachment.trip_id).isMember(current_user) and !current_user.isFriendWith(user.find(attachment.created_by)))%>
+      <%unless (attachment.privacy == 1 and attachment.created_by != current_user.id) or (!Trip.find(attachment.trip_id).isMember(current_user) and !current_user.isFriendWith(user.find(attachment.created_by)))%>
         <td><u><%= link_to attachment.name, trip_attachment_path(@trip, attachment) %></u></td>
         <td><%= attachment.attachment_type %></td>
         <td>

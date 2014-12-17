@@ -15,7 +15,7 @@
   <tbody>
     <% @albums.each do |album| %>
       <tr>
-      <%unless (album.privacy == 1 and album.created_by != current_user) or (!Trip.find(album.trip_id).isMember(current_user) and !current_user.isFriendWith(User.find(album.created_by)))%>
+      <%unless (album.privacy == 1 and album.created_by != current_user.id) or (!Trip.find(album.trip_id).isMember(current_user) and !current_user.isFriendWith(User.find(album.created_by)))%>
         <td><u><%= link_to album.name, trip_album_path(@trip, album) %></u></td>
         <td><%= Trip.find(album.trip_id).name %></td>
         <td><%= User.find(album.created_by).name %></td>

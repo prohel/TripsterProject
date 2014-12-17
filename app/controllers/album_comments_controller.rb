@@ -58,6 +58,6 @@ class AlbumCommentsController < ApplicationController
 
     def check_privacy
       @album_comment = AlbumComment.find(params[:id])
-      @album_comments.user_id = current_user.id
+      @album_comment.user_id = current_user.id
     end
 end

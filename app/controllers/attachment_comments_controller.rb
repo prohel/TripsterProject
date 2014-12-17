@@ -55,4 +55,9 @@ class AttachmentCommentsController < ApplicationController
     def set_attachment_comment
       @attachment_comment = AttachmentComment.find(params[:id])
     end
+
+    def check_privacy
+      @attachment_comment = AttachmentComment.find(params[:id])
+      @attachment_comment.user_id = current_user.id
+    end
 end
